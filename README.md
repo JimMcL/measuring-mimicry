@@ -24,7 +24,7 @@ Each method has a directory containing method-specific data and code. Most metho
 
 | Method | Description |
 | ------ | ----------- |
-| `HumanPredators` | A web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.md). |
+| [`HumanPredators`](HumanPredators) | A web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.md). |
 | `MachineLearning` | Scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.md). |
 | `TraitTable` | Contains a manually created table of trait values, and a simple R script to convert the trait table to the common format output by other methods. [More info](TraitTable/README.md).
 | `LinearMorphometrics` | Trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.md).
