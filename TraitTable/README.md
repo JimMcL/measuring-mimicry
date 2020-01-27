@@ -1,7 +1,4 @@
----
-title: "Mimicry Quality Assessment Table (trait table)"
-output: html_document
----
+# Mimicry Quality Assessment Table (trait table)
 
 
 This directory contains data and basic scripts for the Mimicry Quality Assessment Table, or Trait Table. The spreadsheet `data/Raw data table.xlsx` contains the full compiled dataset. The file `data/Raw data table.csv` contains a single sheet ("`Raw data`") from the spreadsheet, manually exported in CSV format.

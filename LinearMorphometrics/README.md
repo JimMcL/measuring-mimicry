@@ -1,7 +1,4 @@
----
-title: "Linear morphometrics to estimate mimetic accuracy"
-output: html_document
----
+# Linear morphometrics to estimate mimetic accuracy
 
 
 This directory contains R scripts and data to use linear morphometrics to

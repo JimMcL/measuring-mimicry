@@ -1,7 +1,4 @@
----
-title: "Geometric morphometrics to estimate mimetic accuracy"
-output: html_document
----
+# Geometric morphometrics to estimate mimetic accuracy
 
 This directory contains scripts and data to calculate the similarity
 of body shapes between a selection of ant mimics and an "average" ant

@@ -1,7 +1,4 @@
----
-title: "Machine learning to estimate mimetic accuracy"
-output: html_document
----
+# Machine learning to estimate mimetic accuracy
 
 
 This directory contains scripts and data to use machine learning to

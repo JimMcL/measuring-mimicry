@@ -1,7 +1,5 @@
----
-title: "Methods for measuring mimicry"
-output: html_document
----
+# Methods for measuring mimicry
+
 
 This project contains data and scripts that implement multiple methods
 for evaluating the visual accuracy of mimics. Each of the methods

@@ -1,7 +1,4 @@
----
-title: "Human predators to assess mimetic accuracy"
-output: html_document
----
+# Human predators to assess mimetic accuracy
 
 
 This folder contains an implementation of an online game using humans
