@@ -22,12 +22,13 @@ Most code in this project is in `R`, however the machine learning module include
 # Directory structure
 Each method has a directory containing method-specific data and code. Most method directories contain a `README` file, and `data`, `output` and `R` subdirectories. In addition to the method-specific directories, there is a global output directory `output`, which contains the results of mimetic accuracy calculations for each of the methods, and a global analysis directory `R` which contains R scripts (and an Rstudio project) to compare the results from the different methods.
 
-## Method-specific directories
-- `HumanPredators` contains a web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.html).
-- `MachineLearning` contains scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.html).
-- `TraitTable` contains a manually created table of trait values, and a simple R script to convert the trait table to the common format output by other methods. [More info](TraitTable/README.html).
-- `LinearMorphometrics` contains trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.html).
-- `GeometricMorphometrics` contains data and `R` code for statistically analysing and comparing shapes (in this case, the body outlines of ant mimics and ants).  [More info](GeometricMorphometrics/README.html).
+| Method | Description |
+| ------ | ----------- |
+| `HumanPredators` | A web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.md). |
+| `MachineLearning` | Scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.md). |
+| `TraitTable` | Contains a manually created table of trait values, and a simple R script to convert the trait table to the common format output by other methods. [More info](TraitTable/README.md).
+| `LinearMorphometrics` | Trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.md).
+| `GeometricMorphometrics` | Data and `R` code for statistically analysing and comparing shapes (in this case, the body outlines of ant mimics and ants).  [More info](GeometricMorphometrics/README.md). |
 
 ## Global directories
 
