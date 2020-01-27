@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <title>Eat up</title>
+    <link href="trial.css" rel="stylesheet">
+    <script src="trial.js"></script>
+    <script src="trial-params.js"></script>
+    <script src="logger.js"></script>
+    <script src="mfb.js"></script>
+    <script src="user.js"></script>
+    <script src="setup.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script language="javascript">
+
+      function sendEmail(e) {
+          var emailAddress = document.getElementById("email").value;
+          if (emailAddress) {
+              // Get the data logger
+              let logger = ChooseLogger();
+              // Use same sessionId if possible
+              let sessionId = getCookie("sessionId");
+              if (sessionId)
+                  logger.sessionId = sessionId;
+              // Log the email address
+              logger.logUserEmail(emailAddress);
+              // Show thanks message and hide the email form
+              document.getElementById("thanks").style.display = "";
+              document.getElementById("emailBlock").style.display = "none";
+          }
+          // Don't submit the form to a server
+          return false;
+      }
+
+      // Displays the uer's total time taken
+      function showTime(time) {
+          var elems = document.body.querySelectorAll(".showtime");
+          for (let elem of elems) {
+              elem.innerHTML = (time / 1000).toFixed(1);
+          }
+      }
+
+      // Show the user the animals that they got wrong
+      function showMistakes(errors) {
+
+          function showErrors(photos) {
+              // Display the mistakes block
+              document.getElementById("mistakes").style.display = "block";
+              // Fill in the rows
+              function photoToRow(item) {
+                  var p = photos.find(function(p) {
+                      return p.webUrl == item;
+                  });
+                  var descr = p.family == "Formicidae" ? "an ant" :
+                      p.class == "Insecta" && p.isMimic ? "an ant-mimicking insect" :
+                      p.class == "Insecta" ? "an insect" :
+                      p.isMimic ? "an ant-mimicking spider" :
+                      "a spider";
+                  return "<tr><td>This is " + descr + "</td>" +
+                      "<td><img src='" + item + "'></td></tr>";
+              }
+              document.getElementById("errTable").innerHTML = errors.map(photoToRow).join("");
+          }
+          
+          ReadPhotosCSV(PHOTOS_INFO_URL, showErrors);
+          
+      }
+      
+      // ---- Startup function ----
+
+      window.onload = function(e){
+          document.getElementById("email").focus();
+          document.getElementById("emailForm").onsubmit = sendEmail;
+      }
+
+    </script>
+    <style>
+      #mistakes { border:4px solid #e8514e; border-radius: 1ex; display: none; }
+    </style>
+  </head>
+  <body id="finish">
+    <div id="watermark" style="display:none">
+      <div class="text">DEBUG ONLY</div>
+    </div>
+
+    <h1>Eat up</h1>
+
+    <p>
+      Thanks for participating!
+      You scored <span id="numRight" class ="label"></span> out of
+      <span id="numTotal" class="label"></span> correct
+      in <span class="label"><span class="showtime">1000</span>
+      seconds!</span>
+      <span id="congrats"></span>
+    </p>
+
+    <div id="emailBlock">
+      <p>If you would like to be notified of the outcome of this research, please leave your email address below.
+        If you choose to supply your email address, we will not use it for any other purpose, nor will we supply it to any third party.
+
+        <form id="emailForm">
+          Email: <input type="email" id="email">
+          <input id="submit" type="submit" value="Submit" class="button">
+        </form>
+
+    </div>
+    <p class="thanks" id="thanks" style="display:none">Thanks, we'll be in touch!
+
+    <p><a href="index.html" class="button">Try again</a>
+
+      <h2>Photo Credits</h2>
+    <p>
+      We would like to warmly thank the many people who have
+      generously allowed us to use their wonderful photos of spiders and
+      insects. Copyright is retained by the respective photographers.
+    </p>
+    <p>Photographers, in no particular order...
+      <ul>
+        <li> Nick Monaghan <a href="www.lifeunseen.com">www.lifeunseen.com</a></li>
+        <li> Nicholas Fisher</li>
+        <li> Alex Wild</li>
+        <li> Greg Anderson</li>
+        <li> Tom Murray</li>
+        <li> Nicky Bay: Please refer to <a href="https://www.nickybay.com">https://www.nickybay.com</a> for online usage.</li>
+        <li> Msc. Jos&eacute; Miguel D&iacute;az Miranda</li>
+        <li> Jay Barnes: <a href="https://bugguide.net/user/view/1291">BugGuide user page</a></li>
+        <li> Lisa Bentley</li>
+        <li> Robert Whyte</li>
+        <li> Iain Macaulay</li>
+        <li> Mark Helle</li>
+        <li> Flickr user <a href="https://www.flickr.com/photos/22783863@N07/">Sankax</a> </li>
+        <li> Pavel Kirillov</li>
+        <li> Nicholas Fisher</li>
+        <li> Nick Monaghan</li>
+        <li> Jim M<sup>c</sup>Lean</li>
+      </ul>
+    </p>
+
+    <div id="mistakes">
+      <h2>Tricked!</h2>
+      <p>
+      <table id="errTable">
+      </table>
+      </p>
+    </p>
+
+    
+      <!-- ==================================================================== -->
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+      <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script> -->
+      <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+      <script>
+        InitFirebase();
+      </script>
+      <!-- ==================================================================== -->
+
+  </body>
+  <script language="javascript">
+    showTime(getCookie("totalTime"));
+    var total = parseInt(getCookie("totalScored")) || 0;
+    var errors = JSON.parse(getCookie("errors") || "[]");
+    var numErrors = errors.length;
+    document.getElementById("numRight").innerText = total - numErrors;
+    document.getElementById("numTotal").innerText = total + 0;
+    document.getElementById("congrats").innerText = numErrors == 0 ? "Perfect!" :
+                                                    numErrors / total < .2 ? "Excellent! Scroll down to see what tricked you." :
+                                                    numErrors / total < .5 ? "Well done! Scroll down to see what tricked you." :
+                                                    "Good effort! Scroll down to see what tricked you.";
+    if (showUserMistakes && numErrors > 0)
+        showMistakes(errors);
+  </script>
+</html>

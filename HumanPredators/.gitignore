@@ -1,0 +1,6 @@
+# Don't store the database in GIT
+*.sqlite
+mongoose*
+rsconnect
+# Don't store private database credentials
+.Renviron

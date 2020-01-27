@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>Eat up</title>
+    <link href="trial.css" rel="stylesheet">
+    <!-- Required for trial parameters -->
+    <script src="trial-params.js"></script>
+  </head>
+  <body id="start">
+
+    <h1>Have you played this game before?</h1>
+    <p>You will be shown <span id="numPhotos">30</span>
+      photos of insects and spiders. You have <span class="label"><span id="numSeconds">5</span>
+        seconds</span>
+      to decide if each picture is an ant or not.
+
+    <p class="important">
+      Remember, click the <span class="label">Ant</span> button if it's an ant, click the <span class="label">Not ant</span> button if it's anything else.
+
+    <p>
+      <a class="button" href="trial.html?noob=T">No, this is my first time</a>
+      <a class="button" href="trial.html?noob=F">Yes, I've played before</a>
+
+  </body>
+
+  <script>
+    // Fill in changeable parameters
+    document.getElementById("numPhotos").innerText = numPhotos;
+    document.getElementById("numSeconds").innerText = escapeTimeout / 1000;
+
+  </script>
+</html>

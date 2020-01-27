@@ -1,0 +1,144 @@
+* {margin: 0; padding: 0;}
+body, textarea { font-family: sans-serif }
+h1 { padding: .5em; color: #e8514e }
+h2 { padding: .5em;  }
+a { text-decoration: none; color: #4f8fff }
+p, form, ul { padding: .5em 1em; }
+ul { margin-left: 1em; }
+.important { color: #c9c86b; font-size: 120% }
+span.label { color: #e8514e }
+img { margin:.8ex 1ex; box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.1), 0 6px 20px 0 rgba(255, 255, 255, 0.19); }
+img.logo { float:right }
+img.predator { float:right }
+img.model { float:left; clear:both }
+.mnemonic {  text-decoration: underline; }
+
+span.phone, span.prj { font-weight: bold }
+.addr { white-space: pre; padding: 1em;  }
+.button {
+    margin:.3em;
+    padding:0.2em 0.3em;
+    border-radius:0.3em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Helvetica',sans-serif;
+    font-weight:bold;
+    color:#FFFFFF;
+    background-color:#3369ff;
+    box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+}
+a.button {
+    cursor: pointer;
+    display:inline-block;
+    font-size: 150%;
+    padding:0.7em 0.7em;
+    margin:.3em;
+    border-radius:0.3em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Helvetica',sans-serif;
+    font-weight:bold;
+    color:#FFFFFF;
+    background-color:#3369ff;
+    box-shadow:inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align:center;
+    position:relative;
+}
+a.button:active{
+ box-shadow:inset 0 0.6em 2em -0.3em rgba(0,0,0,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+}
+
+/* Big buttons on high-res phones */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (   min--moz-device-pixel-ratio: 2),
+       only screen and (     -o-min-device-pixel-ratio: 2/1),
+       only screen and (        min-device-pixel-ratio: 2),
+       only screen and (                min-resolution: 192dpi),
+       only screen and (                min-resolution: 2dppx) { 
+
+    a.button {
+        font-size: 180%;
+    }
+}
+
+/* -------------- Front (and other) page --------------- */
+body#index, body#start, body#finish {background: #171810; color: #e7fbeb; font-size:120% }
+body#index { max-width: 53em; margin: auto }
+a.play { display:inline-block; clear:left; padding: .5em; }
+a.consent { display:none; clear:left; padding: .8em; }
+a.play, a.consent { color: #e7fbeb }
+
+/* -------------- Trial page --------------- */
+/* Main image, fit to screen */
+body#trial { background: black; color: #e0e0e0; }
+
+#trial .imgbox {width: 500px; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);  }
+.holder { width: 500px; height: 333px; }
+#trial img.sample {position: absolute; width: 500px; height: 333px; margin: auto;  
+                 transition:opacity .5s ease-in, transform .5s ease-in; }
+/* When an image is scored by the user, it is given a class with the
+   name of the score. Translate it away appropriately. */
+.ant { transform: translate(-90%, 30%) scale(.2, .2); opacity: 0; }
+.notAnt { transform: translate(90%, -10%) scale(.2, .2); opacity: 0; }
+.escape { transform: translate(20%, -100%) scale(.2, .2); opacity: 0; }
+.loading { transform: scale(.2, .2); opacity: 0; }
+
+#trial .controlpanel { width: 500px; margin: 0; margin-left: auto; margin-right: auto; background: #88888880; text-align: center}
+#trial .button {     width: 6em; }
+
+/* Timer */
+.timer {
+    display:inline-block;
+    font-size: 100%;
+    font-family:'Helvetica',sans-serif;
+    font-weight:bold;
+    text-align:center;
+    width: 6em;
+    top: -1.1ex;
+    padding:0.7em 1.7em;
+    margin:.3em;
+    border-radius:0.2em;
+    box-sizing: border-box;
+    background: #ff693320;
+    text-align:center;
+    position:relative;
+}
+
+#barborder { position: absolute;
+       left: 0;
+       bottom: -2ex;
+       left: 1px;
+       right: 1px;
+       height: 0.5em;
+       border-radius: 4px;
+       background: black;
+       border: 1px solid black;
+     }
+
+#bar { position: absolute;
+       left: 0;
+       width: 5%;
+       height: 0.5em;
+       border-radius: 4px;
+       background-color: rgb(194,43,83);
+     }
+
+/* -------------- Finish page --------------- */
+
+body#finish { max-width: 35em; margin: auto }
+.thanks { display: inline-block; margin: 1ex 1em; border: 1px solid #e7fbeb; border-radius:.5em; background: #ffff8820 }
+
+
+/* -------------- Debug watermark --------------- */
+
+#watermark {
+    position:absolute;
+    z-index:0;
+    display:block;
+    min-height:99%; 
+    min-width:99%;
+}
+#watermark .text {
+    color:red;
+    font-size:500%;
+}

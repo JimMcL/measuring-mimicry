@@ -1,0 +1,67 @@
+table.pretty  { border: 1px solid #338fd0; }
+table.pretty th { padding: 1ex; background-color: #338fd0; color: white }
+table.pretty td { padding: 0.2ex 1ex; }
+table.pretty tr:nth-child(even) { background-color: #f2f2f2; }
+
+table.scores td { padding: 1ex; border: 1px solid darkGrey; }
+
+table.stats td { text-align: right; }
+table.stats td:first-child { font-weight: bold; text-transform: capitalize; }
+
+tr.total { font-weight: bold; border-top: solid #338fd0 1px;}
+
+.summary { margin: 1ex 1em 1ex 2em; border: 1px solid red; }
+.summary td { text-align: right; font-weight: bold; }
+
+.species { float: right; font-style: italic; }
+
+.accuracy { 
+	height: 40px;  /* Can be anything */
+	position: relative;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	padding: 4px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+.accuracy > span {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 150px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: rgb(43,194,83);
+}
+
+.accuracy > div {
+    position:absolute;
+    display:inline-block;
+    font-size:140%;
+    color:white;
+    top:8px;
+    left:0;
+    right:0;
+    text-align:center
+}
+
+.subhead {
+    display: block;
+    padding: 1em;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.warn {
+    display: block;
+    background-color: #ffeeee;
+    padding: 1em;
+    margin-top: 1em;
+    border: 1px solid black;
+    font-weight: bold;
+    border-radius: 5px;
+}

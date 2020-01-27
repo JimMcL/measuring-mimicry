@@ -1,0 +1,667 @@
+id,label,probability
+images/85.jpg,Insect,0.987866163
+images/85.jpg,Carpenter ant,0.963828325
+images/85.jpg,Invertebrate,0.946349204
+images/85.jpg,Pest,0.921528995
+images/85.jpg,Arthropod,0.802336335
+images/85.jpg,Beetle,0.757501841
+images/85.jpg,Organism,0.715159059
+images/85.jpg,Blister beetles,0.645060539
+images/85.jpg,Membrane-winged insect,0.624659002
+images/85.jpg,Ant,0.56683737
+images/524.jpg,Insect,0.9721734523773193
+images/524.jpg,Spider,0.9604882001876831
+images/524.jpg,Carpenter ant,0.9577417373657227
+images/524.jpg,Ant,0.9382035732269287
+images/524.jpg,Pest,0.924540102481842
+images/524.jpg,Macro photography,0.9162921905517578
+images/524.jpg,Invertebrate,0.9062431454658508
+images/524.jpg,Organism,0.8116517663002014
+images/524.jpg,Arachnid,0.7720112204551697
+images/524.jpg,Close-up,0.7332175970077515
+images/606.jpg,Insect,0.9802051186561584
+images/606.jpg,Spider,0.9686094522476196
+images/606.jpg,Invertebrate,0.9559457898139954
+images/606.jpg,Pest,0.9235477447509766
+images/606.jpg,Arthropod,0.8397080302238464
+images/606.jpg,Ant,0.8298586010932922
+images/606.jpg,Arachnid,0.8133461475372314
+images/606.jpg,Organism,0.7151590585708618
+images/606.jpg,Macro photography,0.582210123538971
+images/606.jpg,Wildlife,0.5761504173278809
+images/736.jpg,Insect,0.9864272475242615
+images/736.jpg,Invertebrate,0.9789047837257385
+images/736.jpg,Pest,0.9675666689872742
+images/736.jpg,Arthropod,0.9110170006752014
+images/736.jpg,Ant,0.8615220785140991
+images/736.jpg,Parasite,0.7744696736335754
+images/736.jpg,Organism,0.7671774625778198
+images/736.jpg,Membrane-winged insect,0.6085128784179688
+images/736.jpg,Arachnid,0.5413798093795776
+images/736.jpg,Spider,0.5146331787109375
+images/784.jpg,Insect,0.9853616952896118
+images/784.jpg,Carpenter ant,0.9642015099525452
+images/784.jpg,Pest,0.9339601993560791
+images/784.jpg,Ant,0.9172625541687012
+images/784.jpg,Mantidae,0.9064082503318787
+images/784.jpg,Invertebrate,0.881557047367096
+images/784.jpg,Membrane-winged insect,0.7158799171447754
+images/784.jpg,Leaf Footed Bugs,0.6821696758270264
+images/784.jpg,Macro photography,0.6668193936347961
+images/784.jpg,Arthropod,0.6410202383995056
+images/786.jpg,Insect,0.9878661632537842
+images/786.jpg,Invertebrate,0.9789047837257385
+images/786.jpg,Pest,0.9123379588127136
+images/786.jpg,Arthropod,0.8178160190582275
+images/786.jpg,Ant,0.7374348044395447
+images/786.jpg,Leaf Footed Bugs,0.6758164167404175
+images/786.jpg,Bug,0.5812143683433533
+images/786.jpg,Beetle,0.5628786683082581
+images/786.jpg,Miridae,0.5273741483688354
+images/1773.jpg,Insect,0.9878661632537842
+images/1773.jpg,Carpenter ant,0.9642565846443176
+images/1773.jpg,Ant,0.9586173892021179
+images/1773.jpg,Pest,0.9445194602012634
+images/1773.jpg,Invertebrate,0.9138664603233337
+images/1773.jpg,Arthropod,0.7158161401748657
+images/1773.jpg,Membrane-winged insect,0.6565130949020386
+images/1773.jpg,Macro photography,0.6168378591537476
+images/1773.jpg,Bug,0.5411374568939209
+images/1773.jpg,Blister beetles,0.5362076163291931
+images/2806.jpg,Insect,0.9834968447685242
+images/2806.jpg,Pest,0.9743400812149048
+images/2806.jpg,Ant,0.9734513759613037
+images/2806.jpg,Carpenter ant,0.9642015099525452
+images/2806.jpg,Invertebrate,0.9463492035865784
+images/2806.jpg,Spider,0.9436383843421936
+images/2806.jpg,Arthropod,0.8397080302238464
+images/2806.jpg,Organism,0.8116517663002014
+images/2806.jpg,Membrane-winged insect,0.7715638875961304
+images/2806.jpg,Macro photography,0.7160609364509583
+images/3171.jpg,Insect,0.9878661632537842
+images/3171.jpg,Ant,0.9835526347160339
+images/3171.jpg,Pest,0.9792638421058655
+images/3171.jpg,Carpenter ant,0.9642855525016785
+images/3171.jpg,Invertebrate,0.9463492035865784
+images/3171.jpg,Membrane-winged insect,0.8720529079437256
+images/3171.jpg,Arthropod,0.7899938225746155
+images/3171.jpg,Organism,0.7671774625778198
+images/3171.jpg,Eumenidae,0.7267751097679138
+images/3171.jpg,Macro photography,0.6443000435829163
+images/3243.jpg,Spider,0.9842602014541626
+images/3243.jpg,Insect,0.977179229259491
+images/3243.jpg,Invertebrate,0.9463492035865784
+images/3243.jpg,Arthropod,0.8397080302238464
+images/3243.jpg,Arachnid,0.8265867233276367
+images/3243.jpg,Pest,0.7882726788520813
+images/3243.jpg,Organism,0.7671774625778198
+images/3243.jpg,Close-up,0.7332175970077515
+images/3243.jpg,Macro photography,0.7284770607948303
+images/3243.jpg,Parasite,0.6993716955184937
+images/3973.jpg,Insect,0.9843994379043579
+images/3973.jpg,Carpenter ant,0.9642266631126404
+images/3973.jpg,Ant,0.9513435959815979
+images/3973.jpg,Pest,0.9436535239219666
+images/3973.jpg,Invertebrate,0.9390115141868591
+images/3973.jpg,Arthropod,0.7899938225746155
+images/3973.jpg,Membrane-winged insect,0.7836030125617981
+images/3973.jpg,Spider,0.5803040266036987
+images/3973.jpg,Macro photography,0.5363892912864685
+images/3976.jpg,Insect,0.9853616952896118
+images/3976.jpg,Invertebrate,0.9789047837257385
+images/3976.jpg,Ant,0.9749963283538818
+images/3976.jpg,Pest,0.9687670469284058
+images/3976.jpg,Carpenter ant,0.9642753601074219
+images/3976.jpg,Spider,0.9045171141624451
+images/3976.jpg,Arthropod,0.8397080302238464
+images/3976.jpg,Organism,0.8116517663002014
+images/3976.jpg,Membrane-winged insect,0.7715638875961304
+images/3976.jpg,Close-up,0.7332175970077515
+images/4592.jpg,Spider,0.9860263466835022
+images/4592.jpg,Invertebrate,0.9789047837257385
+images/4592.jpg,Insect,0.9764467477798462
+images/4592.jpg,Arachnid,0.8772560358047485
+images/4592.jpg,Arthropod,0.8397080302238464
+images/4592.jpg,Pest,0.8255488872528076
+images/4592.jpg,Organism,0.8116517663002014
+images/4592.jpg,Macro photography,0.8085518479347229
+images/4592.jpg,Close-up,0.7843409180641174
+images/4592.jpg,Harvestmen,0.7653312683105469
+images/GJA-4522.jpg,Insect,0.9878661632537842
+images/GJA-4522.jpg,Invertebrate,0.9559457898139954
+images/GJA-4522.jpg,Beetle,0.9301797747612
+images/GJA-4522.jpg,Longhorn beetle,0.9250048995018005
+images/GJA-4522.jpg,Arthropod,0.8397080302238464
+images/GJA-4522.jpg,Organism,0.7671774625778198
+images/GJA-4522.jpg,Pest,0.7220029830932617
+images/GJA-4522.jpg,Wildlife,0.6762316226959229
+images/GJA-4522.jpg,Bug,0.6090251207351685
+images/GJA-4522.jpg,Macro photography,0.5363892912864685
+images/146.jpg,Insect,0.9878661632537842
+images/146.jpg,Pest,0.9727869629859924
+images/146.jpg,Carpenter ant,0.9642729759216309
+images/146.jpg,Ant,0.9455209374427795
+images/146.jpg,Invertebrate,0.9328441619873047
+images/146.jpg,Macro photography,0.8726510405540466
+images/146.jpg,Membrane-winged insect,0.834498941898346
+images/146.jpg,Eumenidae,0.8172632455825806
+images/146.jpg,Parasite,0.7803770303726196
+images/146.jpg,Arthropod,0.7623664736747742
+images/147.jpg,Insect,0.9843994379043579
+images/147.jpg,Eumenidae,0.9652563333511353
+images/147.jpg,Pest,0.9479836225509644
+images/147.jpg,Macro photography,0.9229249358177185
+images/147.jpg,Invertebrate,0.9180419445037842
+images/147.jpg,Carpenter ant,0.8777711987495422
+images/147.jpg,Close-up,0.8323280811309814
+images/147.jpg,Membrane-winged insect,0.7877472043037415
+images/147.jpg,Arthropod,0.7623664736747742
+images/147.jpg,Spider,0.7571582794189453
+images/303.jpg,Insect,0.9878661632537842
+images/303.jpg,Invertebrate,0.9789047837257385
+images/303.jpg,Carpenter ant,0.9600711464881897
+images/303.jpg,Beetle,0.9157970547676086
+images/303.jpg,Arthropod,0.9110170006752014
+images/303.jpg,Pest,0.8867776393890381
+images/303.jpg,Longhorn beetle,0.8360410928726196
+images/303.jpg,Miridae,0.7344932556152344
+images/303.jpg,Organism,0.7151590585708618
+images/303.jpg,Leaf Footed Bugs,0.682170569896698
+images/1545.jpg,Spider,0.9792624115943909
+images/1545.jpg,Insect,0.9256559610366821
+images/1545.jpg,Invertebrate,0.8993545770645142
+images/1545.jpg,Wolf spider,0.8690434694290161
+images/1545.jpg,Macro photography,0.8414999842643738
+images/1545.jpg,Arachnid,0.8287689685821533
+images/1545.jpg,Arthropod,0.7899938225746155
+images/1545.jpg,Close-up,0.7843409180641174
+images/1545.jpg,Organism,0.7671774625778198
+images/1545.jpg,Terrestrial animal,0.7443860769271851
+images/1547.jpg,Insect,0.9659632444381714
+images/1547.jpg,Spider,0.9646456241607666
+images/1547.jpg,Invertebrate,0.9463492035865784
+images/1547.jpg,Arachnid,0.8287689685821533
+images/1547.jpg,Wolf spider,0.8190218806266785
+images/1547.jpg,Arthropod,0.8023363351821899
+images/1547.jpg,Close-up,0.7843409180641174
+images/1547.jpg,Pest,0.7761012315750122
+images/1547.jpg,Tachinidae,0.7371246218681335
+images/1547.jpg,European garden spider,0.7159833908081055
+images/2609.jpg,Insect,0.9878661632537842
+images/2609.jpg,Carpenter ant,0.9639386534690857
+images/2609.jpg,Pest,0.9626665711402893
+images/2609.jpg,Invertebrate,0.9328441619873047
+images/2609.jpg,Ant,0.8904480934143066
+images/2609.jpg,Arthropod,0.770483672618866
+images/2609.jpg,Membrane-winged insect,0.7499335408210754
+images/2609.jpg,Organism,0.7151590585708618
+images/2609.jpg,Macro photography,0.6857466101646423
+images/2609.jpg,Beetle,0.6719815731048584
+images/2626.jpg,Insect,0.9853616952896118
+images/2626.jpg,Pest,0.9713596701622009
+images/2626.jpg,Carpenter ant,0.9574123024940491
+images/2626.jpg,Ant,0.9571607708930969
+images/2626.jpg,Invertebrate,0.9559457898139954
+images/2626.jpg,Eumenidae,0.9262271523475647
+images/2626.jpg,Membrane-winged insect,0.8353620767593384
+images/2626.jpg,Arthropod,0.8178160190582275
+images/2626.jpg,Organism,0.7151590585708618
+images/2626.jpg,wasp,0.6480782628059387
+images/2647.jpg,Insect,0.9818031191825867
+images/2647.jpg,Invertebrate,0.9789047837257385
+images/2647.jpg,Pest,0.9706827998161316
+images/2647.jpg,Spider,0.9298200607299805
+images/2647.jpg,Ant,0.9293264746665955
+images/2647.jpg,Carpenter ant,0.9029454588890076
+images/2647.jpg,Arthropod,0.8397080302238464
+images/2647.jpg,Arachnid,0.7720112204551697
+images/2647.jpg,Membrane-winged insect,0.7243094444274902
+images/2647.jpg,Organism,0.7151590585708618
+images/2651.jpg,Insect,0.9834968447685242
+images/2651.jpg,Pest,0.9713596701622009
+images/2651.jpg,Invertebrate,0.9559457898139954
+images/2651.jpg,Ant,0.8451428413391113
+images/2651.jpg,Arthropod,0.8178160190582275
+images/2651.jpg,Membrane-winged insect,0.7942770719528198
+images/2651.jpg,Organism,0.7671774625778198
+images/2651.jpg,Parasite,0.6906724572181702
+images/2651.jpg,Spider,0.661638617515564
+images/2651.jpg,Carpenter ant,0.6274113655090332
+images/2751.jpg,Insect,0.9878661632537842
+images/2751.jpg,Ant,0.9798212051391602
+images/2751.jpg,Pest,0.9792638421058655
+images/2751.jpg,Carpenter ant,0.964285135269165
+images/2751.jpg,Invertebrate,0.9390115141868591
+images/2751.jpg,Membrane-winged insect,0.8445013165473938
+images/2751.jpg,Arthropod,0.7795767784118652
+images/2751.jpg,Organism,0.7151590585708618
+images/2751.jpg,Chalcid wasp,0.5202796459197998
+images/3199.jpg,Insect,0.9794310331344604
+images/3199.jpg,Pest,0.9427865147590637
+images/3199.jpg,Invertebrate,0.9138664603233337
+images/3199.jpg,Arthropod,0.770483672618866
+images/3199.jpg,Ant,0.7625719904899597
+images/3199.jpg,Close-up,0.7332175970077515
+images/3199.jpg,Organism,0.7151590585708618
+images/3199.jpg,Carpenter ant,0.6809369325637817
+images/3199.jpg,Macro photography,0.6443000435829163
+images/3199.jpg,Parasite,0.6023421287536621
+images/Z002.jpg,Insect,0.9834968447685242
+images/Z002.jpg,Invertebrate,0.9789047837257385
+images/Z002.jpg,Carpenter ant,0.9386593699455261
+images/Z002.jpg,Pest,0.9288812875747681
+images/Z002.jpg,Spider,0.922414243221283
+images/Z002.jpg,Arthropod,0.9110170006752014
+images/Z002.jpg,Organism,0.7671774625778198
+images/Z002.jpg,Arachnid,0.7254798412322998
+images/Z002.jpg,Ant,0.6677137613296509
+images/Z002.jpg,Parasite,0.6110337376594543
+images/Z003.jpg,Insect,0.980994701385498
+images/Z003.jpg,Pest,0.9321379065513611
+images/Z003.jpg,Invertebrate,0.927423894405365
+images/Z003.jpg,Organism,0.7671774625778198
+images/Z003.jpg,Parasite,0.7541779279708862
+images/Z003.jpg,Arthropod,0.7482430934906006
+images/Z003.jpg,Macro photography,0.6668193936347961
+images/Z003.jpg,Arachnid,0.5281838178634644
+images/Z004.jpg,Insect,0.9878661632537842
+images/Z004.jpg,Pest,0.955950140953064
+images/Z004.jpg,Invertebrate,0.9559457898139954
+images/Z004.jpg,Ant,0.9017106890678406
+images/Z004.jpg,Macro photography,0.8835431933403015
+images/Z004.jpg,Arthropod,0.7899938225746155
+images/Z004.jpg,Organism,0.7671774625778198
+images/Z004.jpg,Membrane-winged insect,0.7613834142684937
+images/Z004.jpg,Leaf,0.7594611644744873
+images/Z004.jpg,Carpenter ant,0.7406060099601746
+images/Z005.jpg,Insect,0.9878661632537842
+images/Z005.jpg,Invertebrate,0.9789047837257385
+images/Z005.jpg,Macro photography,0.9467151761054993
+images/Z005.jpg,Arthropod,0.9110170006752014
+images/Z005.jpg,Spider,0.9003036618232727
+images/Z005.jpg,Close-up,0.8967083096504211
+images/Z005.jpg,Pest,0.8786274790763855
+images/Z005.jpg,Organism,0.7941054701805115
+images/Z005.jpg,Beetle,0.7405580282211304
+images/Z005.jpg,Photography,0.7245198488235474
+images/Z008.jpg,Insect,0.9878661632537842
+images/Z008.jpg,Invertebrate,0.9559457898139954
+images/Z008.jpg,Leaf,0.9440348744392395
+images/Z008.jpg,Pest,0.9189357757568359
+images/Z008.jpg,Arthropod,0.770483672618866
+images/Z008.jpg,Organism,0.7671774625778198
+images/Z008.jpg,Plant,0.7165825963020325
+images/Z008.jpg,Macro photography,0.7160609364509583
+images/Z008.jpg,Wildlife,0.5761504173278809
+images/Z008.jpg,Bug,0.5732715129852295
+images/Z009.jpg,Insect,0.9864272475242615
+images/Z009.jpg,Pest,0.9392991065979004
+images/Z009.jpg,Invertebrate,0.9390115141868591
+images/Z009.jpg,Carpenter ant,0.8872185945510864
+images/Z009.jpg,Ant,0.8413889408111572
+images/Z009.jpg,Arthropod,0.8023363351821899
+images/Z009.jpg,Organism,0.7151590585708618
+images/Z009.jpg,Macro photography,0.6857466101646423
+images/Z009.jpg,Membrane-winged insect,0.6565130949020386
+images/Z009.jpg,Wildlife,0.5761504173278809
+images/Z010.jpg,Insect,0.9878661632537842
+images/Z010.jpg,Invertebrate,0.9789047837257385
+images/Z010.jpg,Pest,0.8892729878425598
+images/Z010.jpg,Arthropod,0.8397080302238464
+images/Z010.jpg,Beetle,0.7793101072311401
+images/Z010.jpg,Organism,0.7151590585708618
+images/Z010.jpg,Membrane-winged insect,0.6668729186058044
+images/Z010.jpg,Longhorn beetle,0.5240490436553955
+images/943.jpg,Insect,0.9802051186561584
+images/943.jpg,Carpenter ant,0.9641826152801514
+images/943.jpg,Pest,0.9475498795509338
+images/943.jpg,Ant,0.926337480545044
+images/943.jpg,Invertebrate,0.9225329756736755
+images/943.jpg,Macro photography,0.7872453331947327
+images/943.jpg,Arthropod,0.770483672618866
+images/943.jpg,Close-up,0.7332175970077515
+images/943.jpg,Membrane-winged insect,0.6963247060775757
+images/943.jpg,Parasite,0.6812731623649597
+images/3109.jpg,Insect,0.9853616952896118
+images/3109.jpg,Invertebrate,0.9789047837257385
+images/3109.jpg,Pest,0.9519164562225342
+images/3109.jpg,Spider,0.9468874335289001
+images/3109.jpg,Ant,0.9411375522613525
+images/3109.jpg,Arthropod,0.9110170006752014
+images/3109.jpg,Membrane-winged insect,0.7904127836227417
+images/3109.jpg,Organism,0.7671774625778198
+images/3109.jpg,Close-up,0.7631068229675293
+images/3109.jpg,Macro photography,0.7284770607948303
+images/3112.jpg,Spider,0.9792624115943909
+images/3112.jpg,Insect,0.9750022292137146
+images/3112.jpg,Carpenter ant,0.9570658206939697
+images/3112.jpg,Pest,0.9488525390625
+images/3112.jpg,Ant,0.9469783902168274
+images/3112.jpg,Invertebrate,0.9390115141868591
+images/3112.jpg,Macro photography,0.8287419676780701
+images/3112.jpg,Arachnid,0.8199982643127441
+images/3112.jpg,Arthropod,0.8178160190582275
+images/3112.jpg,Close-up,0.7631068229675293
+images/3114.jpg,Spider,0.9851624965667725
+images/3114.jpg,Insect,0.9818031191825867
+images/3114.jpg,Invertebrate,0.9559457898139954
+images/3114.jpg,Pest,0.9375373721122742
+images/3114.jpg,Macro photography,0.8876028060913086
+images/3114.jpg,Ant,0.8668069839477539
+images/3114.jpg,Close-up,0.8654191493988037
+images/3114.jpg,Arthropod,0.8397080302238464
+images/3114.jpg,Arachnid,0.8352751135826111
+images/3114.jpg,Organism,0.8243920803070068
+images/4013.jpg,Insect,0.9864272475242615
+images/4013.jpg,Invertebrate,0.9789047837257385
+images/4013.jpg,Pest,0.9681602120399475
+images/4013.jpg,Ant,0.8821866512298584
+images/4013.jpg,Arthropod,0.8397080302238464
+images/4013.jpg,Membrane-winged insect,0.7269570231437683
+images/4013.jpg,Parasite,0.7185818552970886
+images/4013.jpg,Organism,0.7151590585708618
+images/4013.jpg,Spider,0.6268433332443237
+images/4017.jpg,Insect,0.9864272475242615
+images/4017.jpg,Ant,0.9674266576766968
+images/4017.jpg,Pest,0.965854823589325
+images/4017.jpg,Carpenter ant,0.9618223905563354
+images/4017.jpg,Invertebrate,0.9559457898139954
+images/4017.jpg,Spider,0.8426603674888611
+images/4017.jpg,Arthropod,0.8178160190582275
+images/4017.jpg,Membrane-winged insect,0.7699432373046875
+images/4017.jpg,Macro photography,0.582210123538971
+images/4017.jpg,Arachnid,0.5315043926239014
+images/4029.jpg,Insect,0.9878661632537842
+images/4029.jpg,Pest,0.9653039574623108
+images/4029.jpg,Invertebrate,0.9463492035865784
+images/4029.jpg,Arthropod,0.8023363351821899
+images/4029.jpg,Parasite,0.7034859657287598
+images/4029.jpg,Membrane-winged insect,0.6449461579322815
+images/4030.jpg,Insect,0.9864272475242615
+images/4030.jpg,Carpenter ant,0.9638757109642029
+images/4030.jpg,Pest,0.9637004733085632
+images/4030.jpg,Ant,0.9586173892021179
+images/4030.jpg,Invertebrate,0.9559457898139954
+images/4030.jpg,Arthropod,0.8397080302238464
+images/4030.jpg,Membrane-winged insect,0.7631601691246033
+images/4030.jpg,Organism,0.7151590585708618
+images/4030.jpg,Macro photography,0.6668193936347961
+images/4030.jpg,Wildlife,0.5761504173278809
+images/4199.jpg,Insect,0.9853616952896118
+images/4199.jpg,Invertebrate,0.9789047837257385
+images/4199.jpg,Pest,0.9706827998161316
+images/4199.jpg,Ant,0.9644712209701538
+images/4199.jpg,Carpenter ant,0.9357987642288208
+images/4199.jpg,Arthropod,0.9110170006752014
+images/4199.jpg,Organism,0.7671774625778198
+images/4199.jpg,Macro photography,0.7284770607948303
+images/4199.jpg,Spider,0.7137294411659241
+images/4199.jpg,Membrane-winged insect,0.6716701984405518
+images/4230.jpg,Insect,0.9853616952896118
+images/4230.jpg,Pest,0.9653039574623108
+images/4230.jpg,Carpenter ant,0.9642729759216309
+images/4230.jpg,Invertebrate,0.9559457898139954
+images/4230.jpg,Ant,0.9498893618583679
+images/4230.jpg,Arthropod,0.8023363351821899
+images/4230.jpg,Membrane-winged insect,0.7649033069610596
+images/4230.jpg,Spider,0.7323517799377441
+images/4230.jpg,Organism,0.7151590585708618
+images/4230.jpg,Parasite,0.561147928237915
+images/4233.jpg,Insect,0.9735795259475708
+images/4233.jpg,Carpenter ant,0.9642831087112427
+images/4233.jpg,Ant,0.9513435959815979
+images/4233.jpg,Pest,0.9505979418754578
+images/4233.jpg,Invertebrate,0.9099477529525757
+images/4233.jpg,Spider,0.8825662136077881
+images/4233.jpg,Membrane-winged insect,0.7890893220901489
+images/4233.jpg,Macro photography,0.7665587663650513
+images/4233.jpg,Arthropod,0.7419777512550354
+images/4233.jpg,Close-up,0.7332175970077515
+images/4755.jpg,Insect,0.9802051186561584
+images/4755.jpg,Spider,0.9792624115943909
+images/4755.jpg,Pest,0.9601791501045227
+images/4755.jpg,Invertebrate,0.9559457898139954
+images/4755.jpg,Arachnid,0.8523384928703308
+images/4755.jpg,Arthropod,0.8178160190582275
+images/4755.jpg,Ant,0.8075776100158691
+images/4755.jpg,Organism,0.7151590585708618
+images/4755.jpg,Parasite,0.6951039433479309
+images/4755.jpg,Orb-weaver spider,0.6651768684387207
+images/Z020.jpg,Insect,0.9834968447685242
+images/Z020.jpg,Spider,0.9516069889068604
+images/Z020.jpg,Invertebrate,0.9390115141868591
+images/Z020.jpg,Pest,0.9225442409515381
+images/Z020.jpg,Arthropod,0.8023363351821899
+images/Z020.jpg,Membrane-winged insect,0.7682936787605286
+images/Z020.jpg,Organism,0.7671774625778198
+images/Z020.jpg,Macro photography,0.7665587663650513
+images/Z020.jpg,Eumenidae,0.7576712369918823
+images/Z020.jpg,Arachnid,0.7075114846229553
+images/Z021.jpg,Insect,0.9843994379043579
+images/Z021.jpg,Pest,0.9225442409515381
+images/Z021.jpg,Invertebrate,0.9225329756736755
+images/Z021.jpg,Macro photography,0.9076613783836365
+images/Z021.jpg,Membrane-winged insect,0.9057133793830872
+images/Z021.jpg,Megachilidae,0.8919662237167358
+images/Z021.jpg,Ant,0.8138102889060974
+images/Z021.jpg,Close-up,0.8004368543624878
+images/Z021.jpg,Arthropod,0.7361268401145935
+images/Z021.jpg,Blister beetles,0.6743771433830261
+images/Z028.jpg,Insect,0.9802051186561584
+images/Z028.jpg,Eumenidae,0.9763002991676331
+images/Z028.jpg,Ant,0.9749963283538818
+images/Z028.jpg,Carpenter ant,0.9642856121063232
+images/Z028.jpg,Pest,0.9606669545173645
+images/Z028.jpg,Membrane-winged insect,0.8762703537940979
+images/Z028.jpg,Invertebrate,0.8218483328819275
+images/Z028.jpg,Macro photography,0.7584004998207092
+images/Z028.jpg,Organism,0.7151590585708618
+images/Z028.jpg,Wildlife,0.6762316226959229
+images/Z029.jpg,Insect,0.9878661632537842
+images/Z029.jpg,Invertebrate,0.9463492035865784
+images/Z029.jpg,Pest,0.9235477447509766
+images/Z029.jpg,Macro photography,0.8545551300048828
+images/Z029.jpg,Parasite,0.7349125742912292
+images/Z029.jpg,Arthropod,0.7306289672851562
+images/Z029.jpg,Membrane-winged insect,0.6926316022872925
+images/Z029.jpg,Photography,0.6242249608039856
+images/Z029.jpg,Net-winged insects,0.50462806224823
+images/Z030.jpg,Insect,0.9843994379043579
+images/Z030.jpg,Invertebrate,0.927423894405365
+images/Z030.jpg,Pest,0.9230474233627319
+images/Z030.jpg,Macro photography,0.8173194527626038
+images/Z030.jpg,Organism,0.7941054701805115
+images/Z030.jpg,Arthropod,0.770483672618866
+images/Z030.jpg,Close-up,0.7332175970077515
+images/Z030.jpg,Wildlife,0.7285952568054199
+images/Z030.jpg,Membrane-winged insect,0.6618289351463318
+images/Z030.jpg,Ant,0.6301057934761047
+images/Z031.jpg,Insect,0.9878661632537842
+images/Z031.jpg,Pest,0.9687670469284058
+images/Z031.jpg,Carpenter ant,0.9639386534690857
+images/Z031.jpg,Invertebrate,0.9559457898139954
+images/Z031.jpg,Ant,0.9455209374427795
+images/Z031.jpg,Membrane-winged insect,0.8917131423950195
+images/Z031.jpg,Macro photography,0.8037481307983398
+images/Z031.jpg,Arthropod,0.8023363351821899
+images/Z031.jpg,Close-up,0.7332175970077515
+images/Z031.jpg,Organism,0.7151590585708618
+images/Z033.jpg,Insect,0.9864272475242615
+images/Z033.jpg,Invertebrate,0.9559457898139954
+images/Z033.jpg,Pest,0.9462504386901855
+images/Z033.jpg,Arthropod,0.8397080302238464
+images/Z033.jpg,Organism,0.7151590585708618
+images/Z033.jpg,Macro photography,0.6668193936347961
+images/Z033.jpg,Wildlife,0.5761504173278809
+images/Z033.jpg,Membrane-winged insect,0.5525616407394409
+images/Z033.jpg,Parasite,0.5487983822822571
+images/Z033.jpg,Spider,0.5303097367286682
+images/Z039.jpg,Eumenidae,0.9768322706222534
+images/Z039.jpg,Insect,0.9500510096549988
+images/Z039.jpg,Wasp,0.8477011919021606
+images/Z039.jpg,Hornet,0.8433020710945129
+images/Z039.jpg,wasp,0.8379066586494446
+images/Z039.jpg,Pest,0.8319070339202881
+images/Z039.jpg,Invertebrate,0.8164995312690735
+images/Z039.jpg,Membrane-winged insect,0.7863858342170715
+images/Z039.jpg,Organism,0.7671774625778198
+images/Z039.jpg,Megachilidae,0.705227255821228
+images/Z040.jpg,Green,0.9487798810005188
+images/Z040.jpg,Insect,0.9239867925643921
+images/Z040.jpg,Macro photography,0.8173194527626038
+images/Z040.jpg,Tree,0.8138649463653564
+images/Z040.jpg,Close-up,0.8131840825080872
+images/Z040.jpg,Organism,0.8116517663002014
+images/Z040.jpg,Leaf,0.7594611644744873
+images/Z040.jpg,Trunk,0.7496988773345947
+images/Z040.jpg,Adaptation,0.6696612238883972
+images/Z040.jpg,Plant,0.6616107821464539
+images/Z041.jpg,Spider,0.9868471622467041
+images/Z041.jpg,Invertebrate,0.9789047837257385
+images/Z041.jpg,Insect,0.9721734523773193
+images/Z041.jpg,Arthropod,0.9110170006752014
+images/Z041.jpg,Black widow,0.8823524713516235
+images/Z041.jpg,Arachnid,0.8731469511985779
+images/Z041.jpg,Widow spider,0.7735248804092407
+images/Z041.jpg,Pest,0.7220029830932617
+images/Z041.jpg,Organism,0.7151590585708618
+images/Z041.jpg,Tangle-web spider,0.6766936182975769
+images/s01.jpg,Insect,0.9853616952896118
+images/s01.jpg,Invertebrate,0.9559457898139954
+images/s01.jpg,Pest,0.9519164562225342
+images/s01.jpg,Ant,0.9218213558197021
+images/s01.jpg,Spider,0.8426603674888611
+images/s01.jpg,Arthropod,0.7899938225746155
+images/s01.jpg,Organism,0.7671774625778198
+images/s01.jpg,Macro photography,0.7019600868225098
+images/s01.jpg,Parasite,0.6906724572181702
+images/s01.jpg,Membrane-winged insect,0.6762425303459167
+images/s22.jpg,Insect,0.9757214188575745
+images/s22.jpg,Carpenter ant,0.939972460269928
+images/s22.jpg,Invertebrate,0.9328441619873047
+images/s22.jpg,Pest,0.8413129448890686
+images/s22.jpg,Arthropod,0.7795767784118652
+images/s22.jpg,Organism,0.7151590585708618
+images/s22.jpg,Parasite,0.5487983822822571
+images/s22.jpg,Ant,0.5351651906967163
+images/s22.jpg,Tachinidae,0.513493001461029
+images/1635.jpg,Insect,0.9853616952896118
+images/1635.jpg,Pest,0.9554944038391113
+images/1635.jpg,Invertebrate,0.9099477529525757
+images/1635.jpg,Macro photography,0.8743476867675781
+images/1635.jpg,Megachilidae,0.8561733365058899
+images/1635.jpg,Tachinidae,0.813416600227356
+images/1635.jpg,Close-up,0.7843409180641174
+images/1635.jpg,Membrane-winged insect,0.7762625217437744
+images/1635.jpg,Net-winged insects,0.7653014659881592
+images/1635.jpg,Arthropod,0.7361268401145935
+images/1632.jpg,Insect,0.9878661632537842
+images/1632.jpg,Invertebrate,0.9789047837257385
+images/1632.jpg,Pest,0.9582675099372864
+images/1632.jpg,Carpenter ant,0.8777711987495422
+images/1632.jpg,Tachinidae,0.8599690794944763
+images/1632.jpg,Arthropod,0.8397080302238464
+images/1632.jpg,Organism,0.7671774625778198
+images/1632.jpg,Ant,0.7552360892295837
+images/1632.jpg,Parasite,0.6860663294792175
+images/1632.jpg,Membrane-winged insect,0.6847862601280212
+images/532.jpg,Insect,0.9864272475242615
+images/532.jpg,Invertebrate,0.9559457898139954
+images/532.jpg,Macro photography,0.9190643429756165
+images/532.jpg,Pest,0.9050782322883606
+images/532.jpg,Organism,0.8116517663002014
+images/532.jpg,Arthropod,0.7899938225746155
+images/532.jpg,Close-up,0.7631068229675293
+images/532.jpg,Leaf beetle,0.7462592720985413
+images/532.jpg,Beetle,0.6907075047492981
+images/532.jpg,Wildlife,0.6762316226959229
+images/517.jpg,Spider,0.9833226799964905
+images/517.jpg,Insect,0.9639115333557129
+images/517.jpg,Invertebrate,0.9328441619873047
+images/517.jpg,Terrestrial animal,0.9189470410346985
+images/517.jpg,Macro photography,0.9067904353141785
+images/517.jpg,Close-up,0.8916806578636169
+images/517.jpg,Organism,0.8862406015396118
+images/517.jpg,Arachnid,0.8565430045127869
+images/517.jpg,Eye,0.8182824850082397
+images/517.jpg,Arthropod,0.8178160190582275
+images/516.jpg,Spider,0.9876184463500977
+images/516.jpg,Insect,0.9794310331344604
+images/516.jpg,Invertebrate,0.9789047837257385
+images/516.jpg,Pest,0.9330522418022156
+images/516.jpg,Arthropod,0.9110170006752014
+images/516.jpg,Arachnid,0.8752027750015259
+images/516.jpg,Terrestrial animal,0.8319084644317627
+images/516.jpg,Orb-weaver spider,0.8128026127815247
+images/516.jpg,Organism,0.7941054701805115
+images/516.jpg,Wildlife,0.7285952568054199
+images/490.jpg,Insect,0.9853616952896118
+images/490.jpg,Invertebrate,0.9390115141868591
+images/490.jpg,Pest,0.8939841389656067
+images/490.jpg,Macro photography,0.838533341884613
+images/490.jpg,Arthropod,0.8178160190582275
+images/490.jpg,Organism,0.8116517663002014
+images/490.jpg,Close-up,0.7843409180641174
+images/490.jpg,Spider,0.7805383205413818
+images/490.jpg,Wildlife,0.6762316226959229
+images/490.jpg,Photography,0.6242249608039856
+images/491.jpg,Insect,0.982634961605072
+images/491.jpg,Ant,0.9689157009124756
+images/491.jpg,Carpenter ant,0.9642841219902039
+images/491.jpg,Pest,0.9523582458496094
+images/491.jpg,Invertebrate,0.9027204513549805
+images/491.jpg,Macro photography,0.8287419676780701
+images/491.jpg,Arthropod,0.7550032734870911
+images/491.jpg,Terrestrial animal,0.7443860769271851
+images/491.jpg,Close-up,0.7332175970077515
+images/491.jpg,Wildlife,0.7285952568054199
+images/493.jpg,Insect,0.9878661632537842
+images/493.jpg,Carpenter ant,0.9638283252716064
+images/493.jpg,Pest,0.9616564512252808
+images/493.jpg,Invertebrate,0.9390115141868591
+images/493.jpg,Ant,0.9367323517799377
+images/493.jpg,Macro photography,0.8287419676780701
+images/493.jpg,Close-up,0.8236038088798523
+images/493.jpg,Membrane-winged insect,0.8137030601501465
+images/493.jpg,Organism,0.7941054701805115
+images/493.jpg,Arthropod,0.7899938225746155
+images/650.jpg,Insect,0.9878661632537842
+images/650.jpg,Invertebrate,0.9789047837257385
+images/650.jpg,Arthropod,0.8397080302238464
+images/650.jpg,Pest,0.8255488872528076
+images/650.jpg,Net-winged insects,0.7235124707221985
+images/650.jpg,Organism,0.7151590585708618
+images/650.jpg,Chrysops,0.6968342065811157
+images/650.jpg,Moth,0.6962836384773254
+images/650.jpg,Moths and butterflies,0.6549990177154541
+images/650.jpg,Bug,0.6518591046333313
+images/651.jpg,Insect,0.982634961605072
+images/651.jpg,Invertebrate,0.8961256742477417
+images/651.jpg,Pest,0.8319070339202881
+images/651.jpg,Close-up,0.7631068229675293
+images/651.jpg,Terrestrial animal,0.7443860769271851
+images/651.jpg,Macro photography,0.6857466101646423
+images/651.jpg,Arthropod,0.6776266098022461
+images/651.jpg,Leafhopper,0.6563161611557007
+images/651.jpg,Bug,0.6541413068771362
+images/651.jpg,Photography,0.6242249608039856
+images/475.jpg,Insect,0.9853616952896118
+images/475.jpg,Pest,0.9536920189857483
+images/475.jpg,Invertebrate,0.8961256742477417
+images/475.jpg,Ant,0.7925407290458679
+images/475.jpg,Close-up,0.7843409180641174
+images/475.jpg,Macro photography,0.7808964848518372
+images/475.jpg,Arthropod,0.7205086946487427
+images/475.jpg,Fly,0.7160041928291321
+images/475.jpg,Organism,0.7151590585708618
+images/475.jpg,Membrane-winged insect,0.6887893676757812
+images/474.jpg,Insect,0.9864272475242615
+images/474.jpg,Invertebrate,0.9463492035865784
+images/474.jpg,Pest,0.8805335760116577
+images/474.jpg,Arthropod,0.8178160190582275
+images/474.jpg,Organism,0.7671774625778198
+images/474.jpg,Close-up,0.7631068229675293
+images/474.jpg,Photography,0.6242249608039856
+images/474.jpg,Wildlife,0.5761504173278809
+images/474.jpg,Bug,0.5411374568939209
+images/474.jpg,Macro photography,0.5363892912864685

@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Eat up</title>
+    <link href="trial.css" rel="stylesheet">
+    <script src="photos.js"></script>
+    <script src="trial-params.js"></script>
+    <script src="logger.js"></script>
+    <script src="user.js"></script>
+    <script src="trial.js"></script>
+    <script src="mfb.js"></script>
+    <script src="setup.js"></script>
+    <script src="papaparse.min.js"></script>
+    
+  </head>
+  <body id="trial">
+
+    <div id="watermark" style="display:none">
+      <div class="text">DEBUG ONLY</div>
+    </div>
+
+    <div class="imgbox" >
+      <div class="holder">
+        <img id="sample" class="sample" src="images/blank.jpg">
+      </div>
+
+      <div class="controlpanel">
+        <a id="ant" class="button score" style="background-color:#297900"><span class="mnemonic">A</span>nt</a>
+        <div class="timer">
+          <span id="time">0</span>
+          <span id="barborder"><span id="bar">&nbsp;</span></span>
+        </div>
+        <a id="notAnt" class="button score"><span class="mnemonic">N</span>ot ant</a>
+      </div>
+    </div>
+
+    <!-- ==================================================================== -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script>
+      function StartTrial() {
+          // is this for debugging only (i.e. not real data)?
+          const debug = IsDebugging();
+          // Is this the user's first attempt?
+          const noob = GetUrlParam("noob") == "T";
+
+          // Get the data logger
+          var logger = ChooseLogger(debug);
+
+          // Log the session
+          logger.logUserSession(noob, window.screen.width, window.screen.height, window.devicePixelRatio, navigator.userAgent);
+          
+          // Allow user to press keys to select a button, a or A for an ant, n or N for not an ant
+          var shortcutKeys = {a: "ant", A: "ant", n: "notAnt", N: "notAnt"};
+
+          // Setup the photos to be displayed. 
+          // Candidate photos are defined in a CSV file
+          PrepareAndStartTrial(logger, numPhotos, PHOTOS_INFO_URL, "sample", escapeTimeout, 500, shortcutKeys);
+      }
+      
+      window.onload = StartTrial;
+
+    </script>
+    <!-- ==================================================================== -->
+    
+  </body>
+</html>

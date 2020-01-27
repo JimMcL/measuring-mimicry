@@ -1,0 +1,122 @@
+<html>
+  <head>
+    <title>Check Photo List</title>
+    <script src="trial-params.js"></script>
+    <script src="setup.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script>
+      'use strict';
+    </script>
+
+    <style>
+      .v { vertical-align: top }
+      .h { text-align: right; font-weight: bold }
+      .err { color: red; font-weight: bold }
+      code { font-weight: bold }
+    </style>
+  </head>
+  <body>
+    <h1>Check Photo List</h1>
+    
+    <p>This page is used to check the content of <code>trial-params.js</code> and <code id="CSV"></code>.</p>
+
+    <p id="csvread" class="err">The image list CSV file cannot be read! This page must be accessed via a web server; browsing directly to the file will not work. Refer to the <a href="README.html">README</a> for more information.
+    </p>
+
+    <p>If any of the checkboxes below are not checked, there is a problem with <code>trial-params.js</code>.</p>
+    
+    <table>
+      <tr>
+        <td>escapeTimeout is defined?</td>
+        <td><input type="checkbox" id="timeoutCB"></td>
+      </tr>
+      <tr>
+        <td>numPhotos is defined?</td>
+        <td><input type="checkbox" id="numPhotosCB"></td>
+      </tr>
+      <tr>
+        <td>showUserMistakes is defined?</td>
+        <td><input type="checkbox" id="showUserMistakesCB"></td>
+      </tr>
+      <tr>
+        <td>PHOTOS_INFO_URL is defined?</td>
+        <td><input type="checkbox" id="PHOTOS_INFO_URLCB"></td>
+      </tr>
+    </table>
+
+    <p>Every row in the table below should have an image in the right column. All images should have the same size.</p>
+
+    <p>Summary of photos:</p>
+    <p>
+      <table>
+        <tr><th class="h">Number of photos</th><td id="numphotos"></td></tr>
+        <tr><th class="h">Number of mimics</th><td id="nummimics"></td></tr>
+        <tr><th class="h">Number of ants</th><td id="numants"></td></tr>
+        <tr><th class="h">Number of non-mimics</th><td id="numnonmimics"></td></tr>
+      </table>
+    </p>
+
+    <p>
+      <table id="imagesTable">
+        <tr><th>Values</th><th>Image</th></tr>
+      </table>
+    </p>
+
+    <script>
+      document.getElementById("CSV").innerText = PHOTOS_INFO_URL;
+      document.getElementById("timeoutCB").checked = escapeTimeout;
+      document.getElementById("numPhotosCB").checked = numPhotos;
+      document.getElementById("showUserMistakesCB").checked = showUserMistakes;
+      document.getElementById("PHOTOS_INFO_URLCB").checked = PHOTOS_INFO_URL;
+
+      function addPhotoRow(idx, photo, table) {
+          var row = table.insertRow(-1);
+          function attrRow(attr) { return "<tr><td class='h'>" +
+                                   attr.charAt(0).toUpperCase() + attr.slice(1) +
+                                   "</td><td>" + photo[attr] + "</td></tr>"; }
+          row.innerHTML = "<td class='v'>" +
+              "<table>" +
+              "<tr><td class='h'>Image</td><td>" + (idx + 1) + "</td></tr>" +
+              attrRow("family") +
+              attrRow("class") +
+              attrRow("species") + 
+              attrRow("forma") + 
+              attrRow("sex") + 
+              attrRow("angle") + 
+              "<tr><td class='h'>URL</td><td>" + photo.webUrl + "</td></tr>" +
+              "<tr><td class='h'>Mimic?</td><td>" + photo.isMimic + "</td></tr>" +
+              attrRow("background") + 
+              attrRow("antennalIllusion") + 
+              attrRow("photographer") + 
+              "</table>" + 
+              "</td>" + 
+              "<td><img src='" + photo.webUrl + "'></td>";
+      }
+
+      function showPhotos(data) {
+          // To just show a subset...
+          // Only show photos with antennal illusion
+          //function isAntenIll(v) { return v.antennalIllusion; }
+          //data = data.filter(isAntenIll);
+      
+          var rErr = document.getElementById("csvread");
+          rErr.innerText = "";
+          rErr.classList.remove("err");
+          
+          var tableRef = document.getElementById('imagesTable').getElementsByTagName('tbody')[0];
+          for (var i = 0; i < data.length; i++) {
+              addPhotoRow(i, data[i], tableRef);
+          }
+      
+          // Fill in summary details
+          document.getElementById("numphotos").innerText = data.length;
+          document.getElementById("nummimics").innerText = data.filter(p => p.isMimic).length;
+          document.getElementById("numants").innerText = data.filter(p => p.family == "Formicidae").length;
+          document.getElementById("numnonmimics").innerText = data.filter(p => p.family != "Formicidae" && !p.isMimic).length;
+      }
+      
+      ReadPhotosCSV(PHOTOS_INFO_URL, showPhotos);
+      
+    </script>
+  </body>
+</html>

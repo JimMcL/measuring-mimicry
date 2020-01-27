@@ -1,0 +1,2 @@
+# .RDS are temporary files used to speed up processing. They will be recreated as needed
+*.rds
