@@ -29,7 +29,7 @@ Each method has a directory containing method-specific data and code. Most metho
 
 ## Method-specific directories
 
-| Method | Description |
+| Directory | Description |
 | ------ | ----------- |
 | [`HumanPredators`](HumanPredators) | A web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.md). |
 | [`MachineLearning`](MachineLearning) | Scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.md). |
