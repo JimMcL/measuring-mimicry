@@ -1,5 +1,7 @@
 # NOT USED, see DownloadFirebase.R
 
+# This is an incomplete implementation of querying an AdaFruit database.
+
 ###############################################
 #### TODO Pagination of data from AdaFruit ####
 ###############################################
@@ -12,9 +14,9 @@ source("db.R")
 
 # ==== AdaFruit fetcher ====
 
-AF_USERNAME <- "FruitJim"
-AF_FEED_KEY <- "mimics"
-AF_API_KEY <- "2464cd35a78145bf8c61b212e2b70723"
+AF_USERNAME <- "NAME"
+AF_FEED_KEY <- "FEED_KEY"
+AF_API_KEY <- "API_KEY"
 AF_PARAMS <- list(include = "value,created_at,id")
 
 queryAdaFruit <- function(startTime = NULL) {

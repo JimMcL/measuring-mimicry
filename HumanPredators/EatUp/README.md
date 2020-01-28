@@ -3,9 +3,10 @@
 
 This project contains a game-like web application that requires
 participants to view a series of photos of arthropods, and decide, for
-each one, whether or not it is an ant.  While this game is complete,
-it is highly likely that changes to the game will be required for
-other uses, which will require web programming skills. 
+each one, whether or not it is an ant.  While this game is complete
+(except for Firebase database credentials), it is highly likely that
+changes to the game will be required for other uses, which will
+require web programming skills.
 
 The game starts with an introductory page, `index.html`. It introduces
 the game and takes the player to an online consent form,
