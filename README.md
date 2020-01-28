@@ -1,20 +1,25 @@
 # Methods for measuring mimicry
 
 
-This project contains data and scripts that implement multiple methods
-for evaluating the visual accuracy of mimics. Each of the methods
-produce one or more CSV files as output. All output CSV files are
-accessible in the `output` directory of this project (as described
-below). The columns in the CSV files are format-specific, but
-always contain a `species` and an `accuracy` column.
+Mimics are animals (or plants) that resemble other animals (or
+plants). This project contains scripts that implement multiple methods
+for evaluating and quantifying the visual accuracy of mimics, which we
+hope will be useful for research into mimicry.
 
-The methods are described in the paper "Mick's Mimicry Methods",
-Kelly et al. 2020. If you make use of any of this functionality in your
-research, please cite the paper.
+As implemented here, each of the methods produces one or more CSV
+files as output. All output CSV files are accessible in the `output`
+directory of this project (as described below). The columns in the CSV
+files are format-specific, but always contain a `species` and an
+`accuracy` column.
+
+The methods are described in the paper "Mick's Mimicry Methods", Kelly
+et al. 2020. If you make use of any of this functionality in your
+research, please cite the paper.  This directory also contains the
+data used to assess the methods in the above paper.
 
 We envisage that methods would mostly be treated as templates, that
-is, the methods source code downloaded and then modified appropriately
-for the task at hand. 
+is: download the method's source code, replace the data, and then
+modify the method appropriately for the task at hand.
 
 # Implementation
 Most code in this project is in `R`, however the machine learning module includes a `Ruby` script, and the human predators module web site is implemented in `HTML`, `CSS` and `JavaScript`.
@@ -22,18 +27,22 @@ Most code in this project is in `R`, however the machine learning module include
 # Directory structure
 Each method has a directory containing method-specific data and code. Most method directories contain a `README` file, and `data`, `output` and `R` subdirectories. In addition to the method-specific directories, there is a global output directory `output`, which contains the results of mimetic accuracy calculations for each of the methods, and a global analysis directory `R` which contains R scripts (and an Rstudio project) to compare the results from the different methods.
 
+## Method-specific directories
+
 | Method | Description |
 | ------ | ----------- |
 | [`HumanPredators`](HumanPredators) | A web application (called `EatUp`) for measuring human assessments of mimetic accuracy based on photos, and an R project for analysing the web application data. [More info](HumanPredators/README.md). |
-| `MachineLearning` | Scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.md). |
-| `TraitTable` | Contains a manually created table of trait values, and a simple R script to convert the trait table to the common format output by other methods. [More info](TraitTable/README.md).
-| `LinearMorphometrics` | Trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.md).
-| `GeometricMorphometrics` | Data and `R` code for statistically analysing and comparing shapes (in this case, the body outlines of ant mimics and ants).  [More info](GeometricMorphometrics/README.md). |
+| [`MachineLearning`](MachineLearning) | Scripts and output for machine learning assessment of mimetic accuracy. It is applied to the same photos as used by the human predators method. [More info](MachineLearning/README.md). |
+| [`TraitTable`](TraitTable) | Contains a manually created table of trait values, and a simple R script to convert the trait table to the common format output by other methods. [More info](TraitTable/README.md).
+| [`LinearMorphometrics`](LinearMorphometrics) | Trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.md).
+| [`GeometricMorphometrics`](GeometricMorphometrics) | Data and `R` code for statistically analysing and comparing shapes (in this case, the body outlines of ant mimics and ants).  [More info](GeometricMorphometrics/README.md). |
 
 ## Global directories
 
-- `output` contains data produced by each of the methods as well as the global method comparison analysis.
-- `R` contains code for comparing the outputs of the various methods.
+| Directory | Description |
+| --------- | ----------- |
+| [`output`](output) | Contains data produced by each of the methods as well as the global method comparison analysis. |
+| [`R`](R) | Contains code for comparing the outputs of the various methods. |
 
 ## Output CSV structure
 
