@@ -13,7 +13,7 @@ files are format-specific, but always contain a `species` and an
 `accuracy` column.
 
 The methods are described in the paper "Mick's Mimicry Methods", Kelly
-et al. 2020. If you make use of any of this functionality in your
+et al. 2020 _(TODO)_. If you make use of any of this functionality in your
 research, please cite the paper.  This directory also contains the
 data used to assess the methods in the above paper.
 
