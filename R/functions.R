@@ -29,7 +29,10 @@ GradientLegend <- function(..., colours = diverge_hcl(21), labels = c("1.0", "0.
 }
 
 # Plots the network implied by a correlation matrix using multidimensional scaling.
-MyPlotNetwork <- function(cor, xFactor = 0.05, yFactor = 0.05, leg.cex = 1) {
+# 
+# @param borderWidth If > 0, uses a crude hack to try to outline the edges in the network.
+# @param borderColor Colour of edge borders.
+MyPlotNetwork <- function(cor, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black") {
   points <- cmdscale(1 - cor, k = 2)
   x <- points[,1]
   y <- points[,2]
@@ -47,21 +50,20 @@ MyPlotNetwork <- function(cor, xFactor = 0.05, yFactor = 0.05, leg.cex = 1) {
   # Make colour represent correlation relative to [-1, 1]
   csc <- .scale(scaled, -1, 1)
   nColours <- 21
-  pal <- diverge_hcl(nColours, h = c(260, 0), c = 100, l = c(60, 90), rev = TRUE)
+  pal <- diverge_hcl(nColours, h = c(240, 0), c = 100, l = c(65, 97), rev = TRUE)
   
   pairs <- combn(seq_len(nrow(points)), 2)
+  apply(pairs, 2, function(p) segments(x[p[1]], y[p[1]], x[p[2]], y[p[2]], 
+                                       lwd = borderWidth + 8 * wsc[p[1], p[2]], col = borderColour))
   apply(pairs, 2, function(p) segments(x[p[1]], y[p[1]], x[p[2]], y[p[2]], 
                                        lwd = 1 + 8 * wsc[p[1], p[2]],
                                        col = pal[round(csc[p[1], p[2]] * nColours)]))
   points(x, y, pch = 21, bg = "white", cex = 1.3)
   
-  shadowtext(x, y, labels = colnames(cor), cex=1, pos = 1, col = "#303030", bg = "white", r = .2,
+  shadowtext(x, y, labels = colnames(cor), cex=1, pos = labelPos, col = "#303030", bg = "white", r = .2,
              theta = seq(0, 2 * pi, length.out = 100))
   GradientLegend("right", colours = rev(pal), bty = "n", inset = c(-0.04, 0), xpd = NA, cex = leg.cex)
 }
-
-pal <- diverge_hcl(nColours, h = c(20, 0), c = 100, l = c(60, 90), rev = TRUE)
-GradientLegend("right", colours = rev(pal), bty = "n", inset = c(-0.04, 0), xpd = NA, cex = leg.cex)
 
 ##############################################################
 # Miscellaneous plotting

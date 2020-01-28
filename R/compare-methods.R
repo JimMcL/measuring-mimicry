@@ -215,7 +215,7 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   #network_plot(cor, min_cor = .1, curved = FALSE, repel = TRUE)
   
   cor <- cor(big, method = "pearson", use = "pairwise.complete.obs")
-  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex)
+  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1))
 }
 
 ##########################################################################
