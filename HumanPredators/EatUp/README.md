@@ -1,12 +1,11 @@
----
-title: "EatUp README"
-output: html_document
----
+# EatUp README
 
 
 This project contains a game-like web application that requires
 participants to view a series of photos of arthropods, and decide, for
-each one, whether or not it is an ant.
+each one, whether or not it is an ant.  While this game is complete,
+it is highly likely that changes to the game will be required for
+other uses, which will require web programming skills. 
 
 The game starts with an introductory page, `index.html`. It introduces
 the game and takes the player to an online consent form,
@@ -23,12 +22,15 @@ you will need to use an Internet accessible web server.
 
 The game is implemented using HTML, CSS and JavaScript. User responses
 are stored in a Google Firebase database. Images of animals are in the
-`images` subdirectory. If you use Firebase as your database, enter its
-information in `mfb.js`. If you use some other database, you will need
-to implement and initialise a new logger (see `logger.js` and
-`setup.js`).
+`images` subdirectory. To run the game using Firebase as your
+database, you will need to obtain an account and enter its information
+in `mfb.js`. If you use some other database or mechanism to store user
+responses, you will need to implement and initialise a new logger (see
+`logger.js` and `setup.js`).
 
 Many parts of this directory are specific to an implementation,
 however they have been left here to serve as an example or a starting
 point for future implementations. As an absolute minimum, it would be
-necessary to change (or remove) `index.html`, `start.html`, 
+necessary to change (or remove) all of the pages except `trial.html`,
+replace the photos in `images`, and set up a Firebase account.
+
