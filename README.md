@@ -17,17 +17,18 @@ et al. 2020 _(TODO)_. If you make use of any of this functionality in your
 research, please cite the paper.  This directory also contains the
 data used to assess the methods in the above paper.
 
+## Implementation
+
 We envisage that methods would mostly be treated as templates, that
 is: download the method's source code, replace the data, and then
 modify the method appropriately for the task at hand.
 
-# Implementation
 Most code in this project is in `R`, however the machine learning module includes a `Ruby` script, and the human predators module web site is implemented in `HTML`, `CSS` and `JavaScript`.
 
-# Directory structure
+## Directory structure
 Each method has a directory containing method-specific data and code. Most method directories contain a `README` file, and `data`, `output` and `R` subdirectories. In addition to the method-specific directories, there is a global output directory `output`, which contains the results of mimetic accuracy calculations for each of the methods, and a global analysis directory `R` which contains R scripts (and an Rstudio project) to compare the results from the different methods.
 
-## Method-specific directories
+### Method-specific directories
 
 | Directory | Description |
 | ------ | ----------- |
@@ -37,7 +38,7 @@ Each method has a directory containing method-specific data and code. Most metho
 | [`LinearMorphometrics`](LinearMorphometrics) | Trait measurement data for mimics and models, and an `R` script to perform a multivariate comparison of mimics to models. [More info](LinearMorphometrics/README.md).
 | [`GeometricMorphometrics`](GeometricMorphometrics) | Data and `R` code for statistically analysing and comparing shapes (in this case, the body outlines of ant mimics and ants).  [More info](GeometricMorphometrics/README.md). |
 
-## Global directories
+### Global directories
 
 | Directory | Description |
 | --------- | ----------- |

@@ -26,6 +26,61 @@ CopyCsvs <- function(fromDir = OUTPUT_DIR, toDir = GLOBAL_OUTDIR) {
 }
 
 
+#############################################################################
+# Accuracy calculation
+
+# Function to calculate mimetic accuracy using Mahalanobis distance
+#
+# @param df Data set containing specimen trait measurements. Each row is a
+#   specimen, each column a trait.
+# @param dataCols Names of the columns in `df` which are to be included in the
+#   calculation. All of the named columns must be numeric.
+# @param retain Proprotion of variance to retain after PCA. Any components not
+#   required to represent this level of variance are not included in the
+#   accuracy calculation.
+CalcMimeticAccuracy <- function(df, dataCols = colnames(df), retain = .99) {
+  
+  # Change any NAs to the mean of the column. The alternative is to throw out any rows containing NAs
+  for (c in dataCols) {
+    df <- ReplaceNAs(df, c)
+  }
+  
+  # Start with PCA. This eliminates contant dimensions which would stop the
+  # Mahalanobis distance calculation from working. By default, we retain almost
+  # all the variation in the dataset (i.e. keep 99%)
+  
+  # Note that Penney et al. (2012) used a GCDA (discriminating between species)
+  # instead of a PCA at this step. They then calculated Mahalanobis distances
+  # using the first 3 canonical variates (axes), which accounted for only 80.6% of
+  # the variation between species. A GCDA is related to a PCA, but it maximises
+  # distances between species, while minimising variation within species. However,
+  # Penney et al. (2012) did not fully explain their reasoning for choosing to
+  # apply a GCDA - it seems to imply that predators are trying to differentiate
+  # between species rather than between mimics and models.
+  
+  pca <- prcomp(reformulate(dataCols), data = df, scale. = FALSE)
+  # Calculate cumulative proportions explained by each component
+  prop <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
+  # How many components do we need to retain the desired proprtion of variation?
+  compToRetain <- which(prop >= retain)[1]
+  # Truncate the dataset to the desired columns
+  data <- as.data.frame(pca$x[, 1:compToRetain])
+  
+  # Calculate centre and covariance of all models (i.e. ants). This is required
+  # for calculating Mahalanobis distance
+  #TODO models <- data[p$mimicType == "model", ]
+  #TODO For now, just randomly pick some rows to be models
+  models <- data[sample(nrow(p), 10), ]  # TODO delete
+  centre <- apply(models, 2, mean, na.rm = TRUE)
+  cov <- var(models)
+  
+  # Calculate distance of each point to the centroid of the models
+  md <- sqrt(mahalanobis(data, centre, cov))
+  
+  # Convert distance to accuracy
+  1 - md / max(md)
+}
+
 ##########################################################################
 ####
 # Read in measurements of mimics and models
@@ -35,15 +90,12 @@ mimics$mimicType <- "mimic"
 #TODO models <- read.csv(file.path(DATA_DIR, "models.csv"), skip = 1, stringsAsFactors = FALSE)
 #TODO models$mimicType <- "model"
 #TODO p <- rbind(mimics, models)
-p <- mimics
+p <- mimics #TODO
 
 # Create a species column (i.e. "Genus species")
 p$species <- paste(p$Genus, p$Species)
 
-
-#### 
-# Work out which columns are measurements, and convert them to numeric
-
+# Work out which columns are measurements, and convert them to numeric.
 # Most columns are numeric, but are read as characters because they contain "No data"
 p[p == "No data"] <- NA
 
@@ -57,57 +109,19 @@ for (c in numericCols) {
   p[[c]] <- as.numeric(p[[c]])
 }
 
-####
-# Calculate Mahalanobis distance
+### Calculate accuracy
+p$accuracy <- CalcMimeticAccuracy(p, numericCols, retain = .99)
 
-# Change any NAs to the mean of the column. The alternative is to throw out any rows containing NAs
-for (c in numericCols) {
-  p <- ReplaceNAs(p, c)
-}
-
-# Start with PCA. This eliminates contant dimensions which would stop the
-# Mahalanobis distance calculation from working. We retain almost all the
-# variation in the dataset (i.e. keep 99%)
-retain <- .99
-
-# Note that Penney et al. (2012) used a GCDA (discriminating between species)
-# instead of a PCA at this step. They then calculated Mahalanobis distances
-# using the first 3 canonical variates (axes), which accounted for only 80.6% of
-# the variation between species. A GCDA is related to a PCA, but it maximises
-# distances between species, while minimising variation within species. However,
-# Penney et al. (2012) did not fully explain their reasoning for choosing to
-# apply a GCDA - it seems to imply that predators are trying to differentiate
-# between species rather than between mimics and models.
-
-pca <- prcomp(reformulate(numericCols), data = p, scale. = FALSE)
-# Calculate cumulative proportions explained by each component
-prop <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
-# How many components do we need to retain the desired proprtion of variation?
-compToRetain <- which(prop >= retain)[1]
-# Truncate the dataset to the desired columns
-data <- as.data.frame(pca$x[, 1:compToRetain])
-
-# Calculate centre and covariance of all models (i.e. ants). This is required
-# for calculating Mahalanobis distance
-#TODO models <- data[p$mimicType == "model", ]
-#TODO For now, just randomly pick some rows to be models
-models <- data[sample(nrow(p), 10), ]  # TODO delete
-centre <- apply(models, 2, mean, na.rm = TRUE)
-cov <- var(models)
-
-# Calculate distance of each point to the centroid of the models
-md <- sqrt(mahalanobis(data, centre, cov))
-
-# Convert to accuracy
-p$accuracy <- 1 - md / max(md)
+### 
+# Save the results
 
 # Output the accuracy per specimen
 if (!dir.exists(OUTPUT_DIR))
   dir.create(OUTPUT_DIR)
 write.csv(p, file.path(OUTPUT_DIR, "Linear morphometrics-accuracy-individuals.csv"), row.names = FALSE)
 
-# Average specimen accuracies to obtain species accuracies
-# Note that I'm keeping the constructed "species column, not the original "Species" column which is specific epithet
+# Take the average of specimen accuracies to obtain species accuracies
+# Note that I'm keeping the constructed "species" column, not the original "Species" column which is specific epithet
 a <- aggregate(p[, c(numericCols, "accuracy")], list(p$Family, p$Genus, p$species, p$mimicType), mean)
 names(a) <- c("Family", "Genus", "species", "mimicType", numericCols, "accuracy")
 write.csv(a, file.path(OUTPUT_DIR, "Linear morphometrics-accuracy-species.csv"), row.names = FALSE)
