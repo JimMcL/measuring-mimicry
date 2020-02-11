@@ -1,0 +1,167 @@
+---
+title: "Comparison of linear morphometrics and trait table"
+author: "Jim McLean"
+date: "11/02/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("functions.R")
+
+measurements <- read.csv(file.path(OUTPUT_DIR, "Linear morphometrics-accuracy-individuals.csv"), stringsAsFactors = FALSE)
+columns <- names(measurements)
+
+
+# Converts an excel cell label (e.g. AG3) to a 1-based column index (e.g. 33)
+cellToColIdx <- function(cell) {
+  # Remove row number
+  col <- sub("[[:digit:]]+$", "", cell)
+  sapply(strsplit(col, ""), function(c) {
+    Reduce(function(a, b) { a * 26 + b}, match(c, LETTERS))
+  })
+}
+
+# Scatter plot points scaled by accuracy 
+PlotLinearMorpho <- function(df, xyCols, accuracy, cexScale = 5, showModelCentroid = FALSE, legpos = "topright", ...) {
+  
+  rng <- range(accuracy, na.rm = TRUE)
+  cex <- (accuracy - rng[1]) / diff(rng) * cexScale + .3
+  cex <- ifelse(is.na(cex), 1, cex)
+  
+  types <- as.factor(df$mimicType)
+  mtToCol <- function(mimicType) ifelse(mimicType == "mimic", "#10101080", "#e0000080")
+  plot(df[, xyCols], pch = 21, bg = mtToCol(df$mimicType), col = "grey", cex = cex, ...)
+  legend(legpos, levels(types), pch = 21, pt.bg = mtToCol(levels(types)), pt.cex = 1.5, col = "black")
+  
+  if (showModelCentroid) {
+    # Show the model centroid
+    models <- df[df$mimicType == "model", xyCols]
+    centre <- apply(models, 2, mean, na.rm = TRUE)
+    points(centre[1], centre[2], pch = 3, col = "black", lwd = 4)
+    points(centre[1], centre[2], pch = 3, col = "red", lwd = 2)
+  }
+}
+
+
+# Plots 2 scatter plots of data points on 2 axes. Both plots are of the exact
+# same points, they just differ in how the points are scaled. 1 plot is scaled
+# using the trait table formula, and the other is scaled using a Mahalanobis
+# distance from the model centroid for the 2 traits.
+#
+# We expect to see the models having the largest circles, since, by definition,
+# they should be most model-like.
+#
+# Note that this is indicative only - the trait table has special case handling
+# manually entered for some no data or inapplicable cases, which is not
+# respected here.
+cmpTraitAndLM <- function(df, traitCols, trait, ttFormula, legpos = "topright", ...) {
+  par(mfrow = c(1, 2))
+
+  # Draw models first, then mimics
+  df <- df[rev(order(df$mimicType)), ]
+  
+  fm <- reformulate(traitCols)
+  ttAcc <- eval(parse(text = ttFormula), df)
+  PlotLinearMorpho(df, traitCols, ttAcc, cexScale = 4, main = sprintf("%s - trait table", trait), legpos = legpos, ...)
+  #abline(0, 1)
+  lmAcc <- CalcMimeticAccuracy(df, traitCols)
+  PlotLinearMorpho(df, traitCols, lmAcc, main = sprintf("%s - linear morphometrics", trait), 
+                   showModelCentroid = TRUE, legpos = legpos, ...)
+  
+  l <- lm(ttAcc ~ lmAcc)
+  print(summary(l))
+}
+
+
+```
+
+## Introduction
+
+Since the trait table and linear morphometrics both perform calculations on the same measurements, we would expect an extremely strong correlation between the two methods. While the observed correlation _is_ strong, (Pearson's correlation coefficient is 0.79), there are clearly differences between the results obtained using the two methods. This document is an attempt to explain the differences by visualising aspects of the two methods.
+
+## Method
+
+The trait table calculates accuracy for mimics using the spreadsheet formula `=SUM(H3,L3,P3,S3,U3,Y3,AC3,AG3,AK3)/9` (on row 3). Implicit in this formula is the assumption that each expression in the formula correlates with a more ant-like appearance. While the equivalent formula for ants is not used for calculations, it is useful to know as it shows how we have mapped ant traits to spider traits. It is defined as `=(I3+P3+W3+AA3+1+AE3+AI3+AM3+AQ3)/9`. Since we have corresponding measurements for both mimics and their models, we could test whether the trait table assumptions hold, at least for our data, by testing whether ants do indeed have higher values for each component. 
+
+However, here we are more interested  in differences between the two methods, so we are instead testing correlations between components calculated using the two methods. To do this, we calculate mimetic accuracy using the two methods on just the trait measurements that make up a component. For example, `H3` (`1 - Leg III Femur ratio`) expands to `=1-G3`, which further expands to `=1 - (E3/F3)`. Replacing column indices with labels gives `=1 - (Leg III Femur: width / Leg III Femur: length)`. Hence, we can compare the trait table accuracy measurement (the value of the expression) with the Mahalanobis distance from each specimen to ants just calculated on the raw values used in the expression, i.e. `Leg III Femur: width` and `Leg III Femur: length`. Our expectation is that the models have the largest circles in each plot, since they are the definition of accurate mimicry. We also expect strong positive and significant correlations between both methods.
+
+Further, we can visualise what is happening using scatter plots. For each component, we draw 2 plots. Each contains the same points, but in one plot the points are scaled using the trait table formula for the component, and in the other they are scaled using Mahalanobis distance from each (2D) point to the centroid of ants. Below, we show the visualised  components and report the correlation (as a linear model) between the two accuracy values.
+
+### Component 1, `1 - Leg III Femur ratio`
+
+```{r Femur.ratio, echo=FALSE, fig.height=5, fig.width=9}
+# H3 =1-G3 = 1 - E3/F3
+cmpTraitAndLM(measurements, c("Leg.III.Femur..width", "Leg.III.Femur..length"), "Femur ratio",  
+              ttFormula = "1 - Leg.III.Femur..width / Leg.III.Femur..length", legpos = "topleft")
+
+```
+
+### Component 2, `1 - Prosoma ratio`
+
+Since all length measurments are normalised by expressing relative to prosoma width, we do not have two raw variables to visualise here, i.e. Prosomoa width is always 1.
+```{r Prosoma.ratio, echo=FALSE, fig.height=5, fig.width=9}
+# Prosoma width was removed from pn as part of normalisation
+# L3 =1-K3 = 1 - I3/J3 = 1 - Prosoma..width / Prosoma..length
+#cmpTraitAndLM(measurements, c("Prosoma..length", "Prosoma..width"), "Prosoma ratio")
+```
+
+### Component 3, `1 - Opisthosoma ratio`
+
+NOTE that many of the mimic circles are larger than models in the trait table plot, and also the correlation between the two methods is negative (i.e. estimate of `lmAcc` < 0), so the two methods disagree.
+
+```{r Opisthosoma.ratio, echo=FALSE, fig.height=5, fig.width=9}
+# P3 =1-O3 = 1 - M3/N3 = 1 - Opisthosoma..width / Opisthosoma..length
+cmpTraitAndLM(measurements, c("Opisthosoma..length", "Opisthosoma..width"), "Opisthosoma ratio", ttFormula = "1 - Opisthosoma..width / Opisthosoma..length", asp = 1)
+```
+
+### Component 4, `Pedicel length/body length`
+
+Again, some (most?) mimics are more ant-like than most ants as assessed by the trait table.
+
+```{r Pedical.body.ratio, echo=FALSE, fig.height=5, fig.width=9}
+# S3 =Q3/R3 = Pedicel..length / Body.length
+cmpTraitAndLM(measurements, c("Body.length", "Pedicel..length"), "Pedicel:body", ttFormula = "Pedicel..length / Body.length", legpos = "topleft")
+```
+
+### Component 5, `Improved colour score`
+
+This component consists of a single raw measurement, so cannot be visualised
+
+```{r colour, echo=FALSE, fig.height=5, fig.width=9}
+# U3 = Improved.colour.score = constant
+```
+
+### Component 6, `1 - Constriction height/Prosoma height: ratio`
+
+```{r Prosoma.height.constriction, echo=FALSE, fig.height=5, fig.width=9}
+# Y3 =1-X3 = 1 - V3 / W3 = 1 - Constriction.height / Prosoma.height
+cmpTraitAndLM(measurements, c("Prosoma.height", "Constriction.height"), "Constriction:prosoma height", ttFormula = "1 - Constriction.height / Prosoma.height", legpos = "topleft")
+```
+
+### Component 7, `1 - Constriction width/Prosoma width: ratio`
+
+Prosomoa width is removed during normalisation, so this component cannot be visualised.
+
+```{r Prosoma.width.constriction, echo=FALSE, fig.height=5, fig.width=9}
+# AC3 =1-AB3 = 1 - Z3 / I3 = 1 - Constriction.width / Prosoma..width
+#cmpTraitAndLM(measurements, c("Constriction.width", "Prosoma..width"), "Constriction:prosoma width", ttFormula = "1 - Constriction.width / Prosoma..width")
+
+```
+
+### Component 8, `1 - Constriction height/Opisthosoma height: ratio`
+
+```{r Opisthosoma.height.constriction, echo=FALSE, fig.height=5, fig.width=9}
+# AG3 =1-AF3 = 1 - AD3 / AE3 = 1 - Constriction.height.1 / Opisthosoma.height
+cmpTraitAndLM(measurements, c("Constriction.height.1", "Opisthosoma.height"), "Constriction:Opisthosoma height", ttFormula = "1 - Constriction.height.1 / Opisthosoma.height", legpos = "bottomright")
+
+```
+
+### Component 9, `1 - Constriction width/Opisthosoma width: ratio`
+
+```{r Opisthosoma.width.constriction, echo=FALSE, fig.height=5, fig.width=9}
+# AK3 =1-AJ3 = 1 - AH3 / M3 = 1 - Constriction.width.1 / Opisthosoma..width
+cmpTraitAndLM(measurements, c("Constriction.width.1", "Opisthosoma..width"), "Constriction:Opisthosoma width", ttFormula = "1 - Constriction.width.1 / Opisthosoma..width", legpos = "bottomright")
+
+```
+
