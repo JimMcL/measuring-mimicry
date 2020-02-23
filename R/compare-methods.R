@@ -55,6 +55,12 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
   values1 <- values1[values1$mimicType == "mimic", ]
   values2 <- values2[values2$mimicType == "mimic", ]
   
+  compareRanks <- FALSE
+  if (compareRanks) {
+    values1$accuracy <- rank(values1$accuracy)
+    values2$accuracy <- rank(values2$accuracy)
+  }
+  
   # Merge on species names. This means we only end up with rows (i.e. species) common to both datasets
   m <- merge(values1[, c("species", "accuracy")], values2[, c("species", "accuracy")], by = "species")
   acc1 <- m$accuracy.x
@@ -164,16 +170,22 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   
   # Adjust p-values for multiple comparisons, by controlling the false discovery
   # rate. This is more powerful than controlling the family-wise error rate,
-  # e.g. using Bonferroni correction
+  # such as e.g. Bonferroni correction
   cc$pAdj <- p.adjust(cc$p, "BH")
 
   # For presentation, round to 2 digits and add a significance column
   rep <- cbind(round(cc[, c("Pearson.cor", "Adj.R.squared", "p", "pAdj", "n")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
 
+  # Full info
   cat(sprintf("Comparison of %s mimics\n", tolower(subset)))
   # Order by method names
   rep <- rep[order(rownames(rep)), ]
-  print(rep, 2)
+  print(rep)
+  
+  # Table in manuscript
+  #TODO methods <- c("Linear morphometrics", "Trait table", "Geomorpho", "Human predators", "Machine learning")
+  #.gc <- function(rowname, col) rep[match(rowname, rownames(rep)), col]
+  #TODO t(sapply(rev(tail(methods, -1)), function(m1) .gc(paste(head(methods, -1), m1, sep = "-"), "Adj.R.squared")))
   
   # Or print out as a matrix
   #xtabs(round(Adj.R.squared, 2) ~ method1 + method2, data = cc)
@@ -193,12 +205,12 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   PlotCI(cc, subset)
 }
 
-PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1) {
+PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "pearson") {
   
   # Load accuracies for all methods
   acc <- LoadAllAccuracies(subset)
   
-  # Get data frames with 2 columns, species and method
+  # Get data frames with 2 columns, species and method (which was named accuracy)
   l <- lapply(names(acc), function(meth) {
     ma <- acc[[meth]][, c("species", "accuracy")]
     names(ma)[2] <- meth
@@ -214,7 +226,9 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   #cor <- correlate(big, method = "pearson", use = "pairwise.complete.obs", quiet = TRUE)
   #network_plot(cor, min_cor = .1, curved = FALSE, repel = TRUE)
   
-  cor <- cor(big, method = "pearson", use = "pairwise.complete.obs")
+  # Calculate correlations
+  cor <- cor(big, method = correlation, use = "pairwise.complete.obs")
+  # Plot correlations
   MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1))
 }
 
