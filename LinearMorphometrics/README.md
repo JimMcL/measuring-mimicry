@@ -10,7 +10,8 @@ A number of phenotypic traits considered salient to ant mimicry were measured. B
 ## Input
 
 - `data/mimics.csv` was copied from `../Trait table/Raw data table.csv`
-- `data/models.csv` was created by measuring ant traits that we considered homologous or analagous to the traits measured in the mimics.
+- `data/models.xlsx` was created by measuring ant traits that we considered homologous or analagous to the traits measured in the mimics.
+- `data/models.csv` was created by exporting `data/models.xlsx` as a CSV file.
 
 ## Processing
 
@@ -21,5 +22,7 @@ A number of phenotypic traits considered salient to ant mimicry were measured. B
     per species, columns are taxonomic details, whether the species is
     considered a mimic, mimetic accuracy, and the number of photos
     used to derive the accuracy
+- `output/Linear morphometrics-accuracy-individuals.csv` - output file with row
+    per measured specimen, columns are values from trait table measurements normalised to units of Promosa width, and linear morphometric accuracy in the column `accuracy`.
     
 
