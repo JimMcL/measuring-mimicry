@@ -58,7 +58,7 @@ For each method, there will be one or more CSV files in the `output` directory. 
 
 ## R Environment
 <!-- Output from devtools::session_info() -->
-Following is the environment used to develop this project. man (most?) of the packages are not used by this project.
+Following is the environment used to develop this project. Many (most?) of the packages are not used by this project. Also note that, as shown the in `source` column below, most packages were installed from CRAN, but one (`JUtils`) was installed from GitHub. See its [README file](https://github.com/JimMcL/JUtils) on GitHub for installation instructions.
 
 ```
  Session info -------------------------------------------------------------------------------------------------
