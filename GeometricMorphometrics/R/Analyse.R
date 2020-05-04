@@ -80,7 +80,7 @@ PlotMimicTypeDensities <- function(coe, ...) {
     ""
   else
     paste0("-", tolower(angle))
-  file.path(OUTPUT_DIR, sprintf("Geomorpho-accuracy-%s%s.csv", level, suf))
+  file.path(OUTPUT_DIR, sprintf("Geometric morphometrics-accuracy-%s%s.csv", level, suf))
 }
 
 # Uses geometric morphometrics to calculate mimetic accuracy.
