@@ -1,5 +1,5 @@
-# Functions to perform outline morphometric analysis on body outline images
-# Input is a set of photos and meta data, output is a fourier characterisation
+# Functions to perform outline morphometric analysis on body outline images.
+# Input is a set of photos and meta data, output is a Fourier characterisation
 # of photos, individuals, species and mimic types.
 #
 # These calculations are _slow_, so results are saved and reused if the same
@@ -44,13 +44,13 @@ suppressMessages(library(Momocs))
 # Performs a morphometric analysis on a set of photos
 #
 # @param photos data frame with a row for each photo to be processed. Columns:
-# @param file location of jpg file
-# @param specimenId unique ID of specimen
-# @param species scientific name of species
-# @param mimicType a factor classifying specimens according to their role
-#     in the mimicry complex. The factor may have any values, eg,
-#     "mimic", "model", "non-mimic". An average shape is calculated
-#     for each mimic type.
+#     file location of jpg file
+#     specimenId unique ID of specimen
+#     species scientific name of species
+#     mimicType a factor classifying specimens according to their role
+#        in the mimicry complex. The factor may have any values, eg,
+#        "mimic", "model", "non-mimic". An average shape is calculated
+#        for each mimic type.
 # @param bodyLength optional
 #
 # @returns list with elements "photo", "individual", "species", "type". photo

@@ -28,8 +28,8 @@ GLOBAL_OUTDIR <- "../../output"
 #   the models in coe.
 MorphoMahalanobisDist <- function(coe, retain = .99, modelType = "model") {
   
-  # Start with PCA. This eliminates contant dimensions which would stop the
-  # mahalanobis distance calculation from working, and also drastically reduces
+  # Start with PCA. This eliminates constant dimensions that would stop the
+  # Mahalanobis distance calculation from working, and also drastically reduces
   # the amount of data, hence speeds up the calculations
   p <- PCA(coe)
   # Discard constant dimensions and convert to a list of columns
@@ -50,7 +50,7 @@ MorphoMahalanobisDist <- function(coe, retain = .99, modelType = "model") {
 # Example function to plot the results of the morphmetric analysis. Plots the
 # points on the first 2 principal components.
 #
-# use carefully, since plotting just 2 principal components can obscure
+# Use with care, since plotting just 2 principal components can obscure
 # meaningful patterns in the data.
 PlotInMorphospace <- function(coe, ...) {
   p <- PCA(coe)
@@ -85,7 +85,8 @@ PlotMimicTypeDensities <- function(coe, ...) {
 
 # Uses geometric morphometrics to calculate mimetic accuracy.
 # 
-# @param photos data frame describing the 
+# @param outlines Data frame describing the photos to be analysed. Must include the
+#   columns required by MorphoAnalysisForPhotos, plus an outlineId column. 
 RunMorphoAnalysis <- function(outlines, angles = c("Dorsal", "Lateral"), force = FALSE, subsample = NULL) {
 
   # Report missing outlines
