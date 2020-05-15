@@ -1,4 +1,5 @@
 # Performs linear morphometric analysis to estimate mimetic accuracy for various ant mimics
+
 source("general-functions.R")
 source("ant-mimic-functions.R")
 
@@ -41,7 +42,7 @@ normalCols <- grep("width|height|length", numericCols, value = TRUE, ignore.case
 pn <- NormaliseLengths(p, normalCols, "Prosoma..width")
 numericCols <- numericCols[numericCols != "Prosoma..width"]
 
-pn$accuracy <- CalcMimeticAccuracy(p, numericCols, modelIndices = p$mimicType == "model", retain = .99)
+pn$accuracy <- CalcMimeticAccuracy(p, numericCols, modelIndices = p$mimicType == "model", scale = TRUE, retain = .99)
 
 #### 
 # Save the results

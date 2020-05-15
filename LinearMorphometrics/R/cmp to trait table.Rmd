@@ -85,9 +85,9 @@ Since the trait table and linear morphometrics both perform calculations on the 
 
 The trait table calculates accuracy for mimics using the spreadsheet formula `=SUM(H3,L3,P3,S3,U3,Y3,AC3,AG3,AK3)/9` (on row 3). Implicit in this formula is the assumption that each expression in the formula correlates with a more ant-like appearance. While the equivalent formula for ants is not used for calculations, it is useful to know as it shows how we have mapped ant traits to spider traits. It is defined as `=(I3+P3+W3+AA3+1+AE3+AI3+AM3+AQ3)/9`. Since we have corresponding measurements for both mimics and their models, we could test whether the trait table assumptions hold, at least for our data, by testing whether ants do indeed have higher values for each component. 
 
-However, here we are more interested  in differences between the two methods, so we are instead testing correlations between components calculated using the two methods. To do this, we calculate mimetic accuracy using the two methods on just the trait measurements that make up a component. For example, `H3` (`1 - Leg III Femur ratio`) expands to `=1-G3`, which further expands to `=1 - (E3/F3)`. Replacing column indices with labels gives `=1 - (Leg III Femur: width / Leg III Femur: length)`. Hence, we can compare the trait table accuracy measurement (the value of the expression) with the Mahalanobis distance from each specimen to ants just calculated on the raw values used in the expression, i.e. `Leg III Femur: width` and `Leg III Femur: length`. Our expectation is that the models have the largest circles in each plot, since they are the definition of accurate mimicry. We also expect strong positive and significant correlations between both methods.
+However, here we are more interested  in differences between the two methods, so we are instead testing correlations between components calculated using the two methods. To do this, we calculate mimetic accuracy using the two methods on just the trait measurements that make up a component. For example, `H3` (`1 - Leg III Femur ratio`) expands to `=1-G3`, which further expands to `=1 - (E3/F3)`. Replacing column indices with labels gives `=1 - (Leg III Femur: width / Leg III Femur: length)`. Hence, we can compare the trait table accuracy measurement (the value of the expression) with the Mahalanobis distance from each specimen to ants just calculated on the raw values used in the expression, i.e. `Leg III Femur: width` and `Leg III Femur: length`. Our expectation is that the models should be more "accurate" than mimics (i.e. have the largest circles in the following plots), since they are the definition of accurate mimicry. We also expect strong positive and significant correlations between both methods.
 
-Further, we can visualise what is happening using scatter plots. For each component, we draw 2 plots. Each contains the same points, but in one plot the points are scaled using the trait table formula for the component, and in the other they are scaled using Mahalanobis distance from each (2D) point to the centroid of ants. Below, we show the visualised  components and report the correlation (as a linear model) between the two accuracy values.
+Further, we can visualise what is happening using scatter plots. Accuracy is represented using circle size - larger circles are more accurate. For each component, we draw 2 plots. Each contains the same points, but in one plot the points are scaled using the trait table formula for the component, and in the other they are scaled using Mahalanobis distance from each (2D) point to the centroid of ants. Below, we show the visualised  components and report the correlation (as a linear model) between the two accuracy values. To repeat; if the two methods agree, we will see a strong positive correlation.
 
 ### Component 1, `1 - Leg III Femur ratio`
 
@@ -100,7 +100,7 @@ cmpTraitAndLM(measurements, c("Leg.III.Femur..width", "Leg.III.Femur..length"), 
 
 ### Component 2, `1 - Prosoma ratio`
 
-Since all length measurments are normalised by expressing relative to prosoma width, we do not have two raw variables to visualise here, i.e. Prosomoa width is always 1.
+Since all length measurements are normalised by expressing relative to prosoma width, we do not have two raw variables to visualise here, i.e. Prosoma width is always 1.
 ```{r Prosoma.ratio, echo=FALSE, fig.height=5, fig.width=9}
 # Prosoma width was removed from pn as part of normalisation
 # L3 =1-K3 = 1 - I3/J3 = 1 - Prosoma..width / Prosoma..length
@@ -142,7 +142,7 @@ cmpTraitAndLM(measurements, c("Prosoma.height", "Constriction.height"), "Constri
 
 ### Component 7, `1 - Constriction width/Prosoma width: ratio`
 
-Prosomoa width is removed during normalisation, so this component cannot be visualised.
+Prosoma width is removed during normalisation, so this component cannot be visualised.
 
 ```{r Prosoma.width.constriction, echo=FALSE, fig.height=5, fig.width=9}
 # AC3 =1-AB3 = 1 - Z3 / I3 = 1 - Constriction.width / Prosoma..width

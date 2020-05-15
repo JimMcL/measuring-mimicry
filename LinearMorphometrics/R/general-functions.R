@@ -33,7 +33,7 @@ CopyCsvs <- function(fromDir = OUTPUT_DIR, toDir = GLOBAL_OUTDIR) {
 #
 # @return \code{df} with length columns normalised.
 NormaliseLengths <- function(df, lengthCols, refCol) {
-  # Normalise all lengths by dividing by prosomoa/head width. This means that size itself is not a factor in mimetic accuracy
+  # Normalise all lengths by dividing by prosoma/head width. This means that size itself is not a factor in mimetic accuracy
   df[, lengthCols] <- df[, lengthCols] / df[[refCol]]
   # Remove the reference column since it's no longer informative
   cols <- names(df)
@@ -49,10 +49,12 @@ NormaliseLengths <- function(df, lengthCols, refCol) {
 #   calculation. All of the named columns must be numeric.
 # @param modelIndices Vector, either row numbers or a boolean vector, used to
 #   identify models within \code{df}.
-# @param retain Proprotion of variance to retain after PCA. Any components not
+# @param scale If TRUE, values are scaled before the PCA. It is a good idea to
+#   scale your variables if they are measured in different units or scales.
+# @param retain Proportion of variance to retain after PCA. Any components not
 #   required to represent this level of variance are not included in the
 #   accuracy calculation.
-CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, retain = .99) {
+CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, scale = TRUE, retain = .99) {
   
   # Change any NAs to the mean of the column. The alternative is to throw out any rows containing NAs
   for (c in dataCols) {
@@ -64,7 +66,7 @@ CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, retai
   # all the variation in the dataset (i.e. keep 99%)
   
   # Note that Penney et al. (2012) used a GCDA (discriminating between species)
-  # instead of a PCA at this step. They then calculated Mahalanobis distances
+  # rather than a PCA at this step. They then calculated Mahalanobis distances
   # using the first 3 canonical variates (axes), which accounted for only 80.6% of
   # the variation between species. A GCDA is related to a PCA, but it maximises
   # distances between species, while minimising variation within species. However,
@@ -72,7 +74,7 @@ CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, retai
   # apply a GCDA - it seems to imply that predators are trying to differentiate
   # between species rather than between mimics and models.
   
-  pca <- prcomp(reformulate(dataCols), data = df, scale. = FALSE)
+  pca <- prcomp(reformulate(dataCols), data = df, scale. = scale)
   
   # Calculate cumulative proportions explained by each component
   prop <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
