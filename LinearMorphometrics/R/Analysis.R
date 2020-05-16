@@ -21,7 +21,7 @@ p <- rbind(mimics[, COLUMN_MAP], MapModelColsToMimicCols(models))
 p$species <- paste(p$Genus, p$Species)
 
 # Work out which columns are measurements, and convert them to numeric.
-# Most columns are numeric, but are read as characters because they contain "No data"
+# Most columns are numeric, but are read as characters because they contain the text "No data"
 p[p == "No data"] <- NA
 
 # Convert to numeric

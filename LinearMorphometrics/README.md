@@ -15,7 +15,8 @@ A number of phenotypic traits considered salient to ant mimicry were measured. B
 
 ## Processing
 
- - `R/Analysis.R` is an R script that reads the input data, analyses it and writes the output files. It can be run from within Rstudio or from the command line.
+ - `R/Analysis.R` is an R script that reads the input data, analyses it and writes the output files. It can be run from within Rstudio or from the command line. This script is largely specific to our data set, however it calls the general-purpose functions in `R/general-functions.R`.
+ - `R/general-functions.R` contains a number of general-purpose functions that could be used to perform a linear morphometric analysis on any data set. 
 
 ## Output
 - `output/Linear morphometrics-accuracy-species.csv` - output file with row
