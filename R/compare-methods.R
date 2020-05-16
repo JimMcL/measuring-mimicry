@@ -222,14 +222,14 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   big$species <- NULL
   # Correlate
   # This doesn't give a good layout for our network, hence commented out; plot
-  # using Classical (Metric) Multidimensional Scaling instead
-  #cor <- correlate(big, method = "pearson", use = "pairwise.complete.obs", quiet = TRUE)
-  #network_plot(cor, min_cor = .1, curved = FALSE, repel = TRUE)
+  # using Classical (Metric) or else non-dimensional Multidimensional Scaling instead
+  #cor <- corrr::correlate(big, method = "pearson", use = "pairwise.complete.obs", quiet = TRUE)
+  #corrr::network_plot(cor, min_cor = .1, curved = TRUE, repel = TRUE)
   
   # Calculate correlations
   cor <- cor(big, method = correlation, use = "pairwise.complete.obs")
   # Plot correlations
-  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1))
+  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1), p = 1)
 }
 
 ##########################################################################

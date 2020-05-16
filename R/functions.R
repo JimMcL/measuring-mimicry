@@ -28,12 +28,23 @@ GradientLegend <- function(..., colours = diverge_hcl(21), labels = c("1.0", "0.
          y.intersp = y.intersp)
 }
 
-# Plots the network implied by a correlation matrix using multidimensional scaling.
-# 
-# @param borderWidth If > 0, uses a crude hack to try to outline the edges in the network.
+# Plots the network implied by a correlation matrix using multidimensional
+# scaling.
+#
+# @param classic If TRUE, use Classical (Metric) Multidimensional Scaling,
+#   otherwise use Kruskal's Non-metric Multidimensional Scaling.
+# @param borderWidth If > 0, uses a crude hack to try to outline the edges in
+#   the network.
 # @param borderColor Colour of edge borders.
-MyPlotNetwork <- function(cor, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black") {
-  points <- cmdscale(1 - cor, k = 2)
+# @param p If non-metric scaling, then \code{p} is power for Minkowski distance
+#   in the configuration space (i.e. it affects the layout ;).
+MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black", p = 2) {
+  # Perform the scaling
+  if (classic)
+    scaled <- cmdscale(1 - cor, k = 3)
+  else
+    scaled <- MASS::isoMDS(1 - cor, k = 2, p = p, trace = FALSE)
+  points <- scaled$points
   x <- points[,1]
   y <- points[,2]
   par(mar = c(0, 0, 0, 1.2) + .1)
