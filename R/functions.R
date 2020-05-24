@@ -41,10 +41,9 @@ GradientLegend <- function(..., colours = diverge_hcl(21), labels = c("1.0", "0.
 MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black", p = 2) {
   # Perform the scaling
   if (classic)
-    scaled <- cmdscale(1 - cor, k = 3)
+    points <- cmdscale(1 - cor, k = 2)
   else
-    scaled <- MASS::isoMDS(1 - cor, k = 2, p = p, trace = FALSE)
-  points <- scaled$points
+    points <- MASS::isoMDS(1 - cor, k = 2, p = p, trace = FALSE)$points
   x <- points[,1]
   y <- points[,2]
   par(mar = c(0, 0, 0, 1.2) + .1)
@@ -64,11 +63,11 @@ MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, 
   pal <- diverge_hcl(nColours, h = c(240, 0), c = 100, l = c(65, 97), rev = TRUE)
   
   pairs <- combn(seq_len(nrow(points)), 2)
-  apply(pairs, 2, function(p) segments(x[p[1]], y[p[1]], x[p[2]], y[p[2]], 
-                                       lwd = borderWidth + 8 * wsc[p[1], p[2]], col = borderColour))
-  apply(pairs, 2, function(p) segments(x[p[1]], y[p[1]], x[p[2]], y[p[2]], 
-                                       lwd = 1 + 8 * wsc[p[1], p[2]],
-                                       col = pal[round(csc[p[1], p[2]] * nColours)]))
+  apply(pairs, 2, function(pp) segments(x[pp[1]], y[pp[1]], x[pp[2]], y[pp[2]], 
+                                       lwd = borderWidth + 8 * wsc[pp[1], pp[2]], col = borderColour))
+  apply(pairs, 2, function(pp) segments(x[pp[1]], y[pp[1]], x[pp[2]], y[pp[2]], 
+                                       lwd = 1 + 8 * wsc[pp[1], pp[2]],
+                                       col = pal[round(csc[pp[1], pp[2]] * nColours)]))
   points(x, y, pch = 21, bg = "white", cex = 1.3)
   
   shadowtext(x, y, labels = colnames(cor), cex=1, pos = labelPos, col = "#303030", bg = "white", r = .2,
