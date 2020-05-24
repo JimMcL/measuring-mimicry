@@ -156,17 +156,31 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
 
   acc <- LoadAllAccuracies(subset)
 
+  
+  # This is confusing, but swap the names of rows and columns because of the way expand.grid works
+  n <- length(unique(names(acc))) - 1
+  if (n != 4)
+    stop("Unexpected methods in data")
+  pairs <- expand.grid(col = 1:n, row = 1:n)
+  # Remove pairs that are blank in the table (the lower-right diagonal)
+  pairs <- pairs[rowSums(pairs) <= 5, ]
+  # Replace indices with method names
+  rows <- c("Machine learning", "Human predators", "Geometric morphometrics", "Trait table")
+  cols <- c("Linear morphometrics", "Trait table", "Geometric morphometrics", "Human predators")
+  if (!all(names(acc) %in% c(rows, cols)))
+    stop("Unexpected methods in data")
+  pairs <- data.frame(rows = rows[pairs$row], cols = cols[pairs$col])
+  
   # Get indices of all pairs
-  pairs <- combn(seq_len(length(acc)), 2)
-  cc <- apply(pairs, 2, function(pair) {
-    method1 <- names(acc)[pair[1]]
-    method2 <- names(acc)[pair[2]]
-    CalcPairwiseCovariance(method1, acc[[pair[1]]], method2, acc[[pair[2]]], subset)
+  cc <- apply(pairs, 1, function(pair) {
+    rowMethod <- pair[1]
+    colMethod <- pair[2]
+    CalcPairwiseCovariance(rowMethod, acc[[rowMethod]], colMethod, acc[[colMethod]], subset)
     })
   cc <- as.data.frame(t(cc))
-  row.names(cc) <- apply(pairs, 2, function(pair) paste(names(acc)[pair[1]], names(acc)[pair[2]], sep = "-"))
-  cc$method1 <- names(acc)[pairs[1,]]
-  cc$method2 <- names(acc)[pairs[2,]]
+  row.names(cc) <- paste(pairs$rows, pairs$cols, sep = "-")
+  cc$method1 <- pairs$row
+  cc$method2 <- pairs$col
   
   # Adjust p-values for multiple comparisons, by controlling the false discovery
   # rate. This is more powerful than controlling the family-wise error rate,
@@ -174,19 +188,12 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   cc$pAdj <- p.adjust(cc$p, "BH")
 
   # For presentation, round to 2 digits and add a significance column
-  rep <- cbind(round(cc[, c("Pearson.cor", "Adj.R.squared", "p", "pAdj", "n")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
+  rep <- cbind(round(cc[, c("Adj.R.squared", "pAdj", "n", "Pearson.cor", "p")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
 
   # Full info
   cat(sprintf("Comparison of %s mimics\n", tolower(subset)))
-  # Order by method names
-  rep <- rep[order(rownames(rep)), ]
   print(rep)
-  
-  # Table in manuscript
-  #TODO methods <- c("Linear morphometrics", "Trait table", "Geomorpho", "Human predators", "Machine learning")
-  #.gc <- function(rowname, col) rep[match(rowname, rownames(rep)), col]
-  #TODO t(sapply(rev(tail(methods, -1)), function(m1) .gc(paste(head(methods, -1), m1, sep = "-"), "Adj.R.squared")))
-  
+
   # Or print out as a matrix
   #xtabs(round(Adj.R.squared, 2) ~ method1 + method2, data = cc)
   #xtabs(round(pAdj, 2) ~ method1 + method2, data = cc)
@@ -205,13 +212,15 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   PlotCI(cc, subset)
 }
 
-PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "pearson") {
+# @param p Parameter used to control network layout (Power for Minkowski distance)
+PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "pearson", p = .75) {
   
   # Load accuracies for all methods
   acc <- LoadAllAccuracies(subset)
   
   # Get data frames with 2 columns, species and method (which was named accuracy)
-  l <- lapply(names(acc), function(meth) {
+  methods <- names(acc)
+  l <- lapply(methods, function(meth) {
     ma <- acc[[meth]][, c("species", "accuracy")]
     names(ma)[2] <- meth
     ma
@@ -228,8 +237,8 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   
   # Calculate correlations
   cor <- cor(big, method = correlation, use = "pairwise.complete.obs")
-  # Plot correlations
-  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1), p = 1)
+  # Plot correlations. The p value was selected through trial and error to look good
+  MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1), p = p)
 }
 
 ##########################################################################
