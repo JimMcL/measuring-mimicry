@@ -24,6 +24,12 @@ p$species <- paste(p$Genus, p$Species)
 # Most columns are numeric, but are read as characters because they contain the text "No data"
 p[p == "No data"] <- NA
 
+# Constriction columns contain "N/A" meaning no constriction. In
+# CalcMimeticAccuracy, NAs are replaced with the mean value for the column they
+# are in, which means they don't contribute to variation 
+constrictionCols <- grep("constriction", names(p), value = TRUE, ignore.case = TRUE)
+p[, constrictionCols][p[, constrictionCols] == "N/A"] <- NA
+
 # Convert to numeric
 numericCols <- grep("width|height|length|score", names(p), value = TRUE, ignore.case = TRUE)
 for (c in numericCols) {
@@ -36,7 +42,7 @@ for (c in numericCols) {
 # Calculate accuracy
 
 # We want to normalise all length measurements by expressing them in units of head width for each specimen.
-# That we we are comparing shape/proportions, not size.
+# That way, we are comparing shape/proportions, not size.
 # Columns to be normalised are all the length/width/height columns
 normalCols <- grep("width|height|length", numericCols, value = TRUE, ignore.case = TRUE)
 pn <- NormaliseLengths(p, normalCols, "Prosoma..width")

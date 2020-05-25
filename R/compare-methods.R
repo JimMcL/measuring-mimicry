@@ -155,9 +155,8 @@ LoadAllAccuracies <- function(subset = c("All", "Dorsal", "Lateral")) {
 CompareAllMethods <- function(subset, alpha = 0.05) {
 
   acc <- LoadAllAccuracies(subset)
-
   
-  # This is confusing, but swap the names of rows and columns because of the way expand.grid works
+  # Build pairs of methods in the order that makes it easy to transcribe into Table 1
   n <- length(unique(names(acc))) - 1
   if (n != 4)
     stop("Unexpected methods in data")
@@ -169,7 +168,7 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   cols <- c("Linear morphometrics", "Trait table", "Geometric morphometrics", "Human predators")
   if (!all(names(acc) %in% c(rows, cols)))
     stop("Unexpected methods in data")
-  pairs <- data.frame(rows = rows[pairs$row], cols = cols[pairs$col])
+  pairs <- data.frame(rows = rows[pairs$row], cols = cols[pairs$col], stringsAsFactors = FALSE)
   
   # Get indices of all pairs
   cc <- apply(pairs, 1, function(pair) {
@@ -251,9 +250,10 @@ CompareAllMethods("All")
 
 # Method correlation network diagram
 # PNG suitable for embedding in a Word document
+p <- .6
 JPlotToPNG("../output/Figure_1.png",
-           PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7),
+           PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7, p = p),
            units = "px", width = 900, height = 450, res = 160)
 # Same diagram for publishing
 JPlotToPDF("../output/Figure_1.pdf",
-           PlotCorNetwork("All", xFactor = 0.2, leg.cex = .7))
+           PlotCorNetwork("All", xFactor = 0.2, leg.cex = .7, p = p))

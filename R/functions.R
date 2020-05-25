@@ -33,6 +33,7 @@ GradientLegend <- function(..., colours = diverge_hcl(21), labels = c("1.0", "0.
 #
 # @param classic If TRUE, use Classical (Metric) Multidimensional Scaling,
 #   otherwise use Kruskal's Non-metric Multidimensional Scaling.
+# @param xFactor,yFactor Factors used to extend the graphical range of the plot.
 # @param borderWidth If > 0, uses a crude hack to try to outline the edges in
 #   the network.
 # @param borderColor Colour of edge borders.
