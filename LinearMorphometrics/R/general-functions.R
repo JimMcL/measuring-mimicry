@@ -43,6 +43,10 @@ NormaliseLengths <- function(df, lengthCols, refCol) {
 
 # Function to calculate mimetic accuracy using Mahalanobis distance
 #
+# The input data frame should contain both mimics and models. Only models are
+# used to determine the centroid and covariance, but Mahalanobis distance is
+# then calculated for all rows in the data frame.
+#
 # @param df Data set containing specimen trait measurements. Each row is a
 #   specimen, each column a trait.
 # @param dataCols Names of the columns in `df` which are to be included in the
@@ -54,7 +58,14 @@ NormaliseLengths <- function(df, lengthCols, refCol) {
 # @param retain Proportion of variance to retain after PCA. Any components not
 #   required to represent this level of variance are not included in the
 #   accuracy calculation.
+#
+# @return Vector of accuracy values for each row in \code{df}. Accuracy varies
+#   from 1, a perfect model, to 0, the least model-like specimen in the data
+#   set.
 CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, scale = TRUE, retain = .99) {
+  
+  if (missing("modelIndices"))
+    stop("Missing modelIndices argument\n")
   
   # Change any NAs to the mean of the column. The alternative is to throw out any rows containing NAs
   for (c in dataCols) {

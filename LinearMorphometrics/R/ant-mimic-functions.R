@@ -49,7 +49,7 @@ MapModelColsToMimicCols <- function(models) {
   # Need to derive some values since there's no direct equivalent in ants and spiders
   
   # In order to compare Improved.colour.score for mimics, we need to give models a
-  # corresponding value. Since the improved colouration is implicitly making it
+  # corresponding value. Since the improved colouration is implicitly making
   # mimics ant-like, give ants a score of 1
   models$Improved.colour.score <- 1
   
