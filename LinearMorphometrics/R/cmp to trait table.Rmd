@@ -64,12 +64,13 @@ cmpTraitAndLM <- function(df, traitCols, trait, ttFormula, legpos = "topright", 
   
   fm <- reformulate(traitCols)
   ttAcc <- eval(parse(text = ttFormula), df)
-  PlotLinearMorpho(df, traitCols, ttAcc, cexScale = 4, main = sprintf("%s - trait table", trait), legpos = legpos, ...)
+  PlotLinearMorpho(df, traitCols, ttAcc, cexScale = 4, main = "Trait table", legpos = legpos, ...)
   #abline(0, 1)
-  lmAcc <- CalcMimeticAccuracy(df, traitCols)
-  PlotLinearMorpho(df, traitCols, lmAcc, main = sprintf("%s - linear morphometrics", trait), 
+  lmAcc <- CalcMimeticAccuracy(df, traitCols, df$mimicType == "model")
+  PlotLinearMorpho(df, traitCols, lmAcc, main = "Linear morphometrics", 
                    showModelCentroid = TRUE, legpos = legpos, ...)
   
+  cat(sprintf("Trait table formula: accuracy = %s\n", ttFormula))
   l <- lm(ttAcc ~ lmAcc)
   print(summary(l))
 }
@@ -91,6 +92,8 @@ Further, we can visualise what is happening using scatter plots. Accuracy is rep
 
 ### Component 1, `1 - Leg III Femur ratio`
 
+This trait shows a small positive correlation.
+
 ```{r Femur.ratio, echo=FALSE, fig.height=5, fig.width=9}
 # H3 =1-G3 = 1 - E3/F3
 cmpTraitAndLM(measurements, c("Leg.III.Femur..width", "Leg.III.Femur..length"), "Femur ratio",  
@@ -109,7 +112,7 @@ Since all length measurements are normalised by expressing relative to prosoma w
 
 ### Component 3, `1 - Opisthosoma ratio`
 
-NOTE that many of the mimic circles are larger than models in the trait table plot, and also the correlation between the two methods is negative (i.e. estimate of `lmAcc` < 0), so the two methods disagree.
+Note that many of the mimic circles are larger than models in the trait table plot, and also the correlation between the two methods is negative (i.e. estimate of `lmAcc` < 0), so the two methods disagree.
 
 ```{r Opisthosoma.ratio, echo=FALSE, fig.height=5, fig.width=9}
 # P3 =1-O3 = 1 - M3/N3 = 1 - Opisthosoma..width / Opisthosoma..length
@@ -118,7 +121,7 @@ cmpTraitAndLM(measurements, c("Opisthosoma..length", "Opisthosoma..width"), "Opi
 
 ### Component 4, `Pedicel length/body length`
 
-Again, some (most?) mimics are more ant-like than most ants as assessed by the trait table.
+Again, some (most?) mimics are more ant-like than most ants as assessed by the trait table, and the correlation is negative.
 
 ```{r Pedical.body.ratio, echo=FALSE, fig.height=5, fig.width=9}
 # S3 =Q3/R3 = Pedicel..length / Body.length
