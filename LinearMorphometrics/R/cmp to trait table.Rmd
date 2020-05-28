@@ -65,13 +65,14 @@ cmpTraitAndLM <- function(df, traitCols, trait, ttFormula, legpos = "topright", 
   fm <- reformulate(traitCols)
   ttAcc <- eval(parse(text = ttFormula), df)
   PlotLinearMorpho(df, traitCols, ttAcc, cexScale = 4, main = "Trait table", legpos = legpos, ...)
-  #abline(0, 1)
   lmAcc <- CalcMimeticAccuracy(df, traitCols, df$mimicType == "model")
   PlotLinearMorpho(df, traitCols, lmAcc, main = "Linear morphometrics", 
                    showModelCentroid = TRUE, legpos = legpos, ...)
   
   cat(sprintf("Trait table formula: accuracy = %s\n", ttFormula))
-  l <- lm(ttAcc ~ lmAcc)
+  # Run linear model just on mimics
+  lmdf <- data.frame(Trait.table = ttAcc, Linear.morpho = lmAcc, check.names = FALSE)
+  l <- lm(Trait.table ~ Linear.morpho, data = lmdf[df$mimicType == "mimic", ])
   print(summary(l))
 }
 
@@ -88,7 +89,7 @@ The trait table calculates accuracy for mimics using the spreadsheet formula `=S
 
 However, here we are more interested  in differences between the two methods, so we are instead testing correlations between components calculated using the two methods. To do this, we calculate mimetic accuracy using the two methods on just the trait measurements that make up a component. For example, `H3` (`1 - Leg III Femur ratio`) expands to `=1-G3`, which further expands to `=1 - (E3/F3)`. Replacing column indices with labels gives `=1 - (Leg III Femur: width / Leg III Femur: length)`. Hence, we can compare the trait table accuracy measurement (the value of the expression) with the Mahalanobis distance from each specimen to ants just calculated on the raw values used in the expression, i.e. `Leg III Femur: width` and `Leg III Femur: length`. Our expectation is that the models should be more "accurate" than mimics (i.e. have the largest circles in the following plots), since they are the definition of accurate mimicry. We also expect strong positive and significant correlations between both methods.
 
-Further, we can visualise what is happening using scatter plots. Accuracy is represented using circle size - larger circles are more accurate. For each component, we draw 2 plots. Each contains the same points, but in one plot the points are scaled using the trait table formula for the component, and in the other they are scaled using Mahalanobis distance from each (2D) point to the centroid of ants. Below, we show the visualised  components and report the correlation (as a linear model) between the two accuracy values. To repeat; if the two methods agree, we will see a strong positive correlation.
+Further, we can visualise what is happening using scatter plots. Accuracy is represented using circle size - larger circles are more accurate. For each component, we draw 2 plots. Each contains the same points, but in one plot the points are scaled using the trait table formula for the component, and in the other they are scaled using Mahalanobis distance from each (2D) point to the centroid of ants. Below, we show the visualised  components and report the correlation (as a linear model) between the two accuracy values. Only mimics are tested in the correlation. To repeat; if the two methods agree, we will see a strong positive correlation.
 
 ### Component 1, `1 - Leg III Femur ratio`
 

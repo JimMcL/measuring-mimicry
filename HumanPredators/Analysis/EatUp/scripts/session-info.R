@@ -12,6 +12,8 @@ QC_ACCURACY_THRESHOLD <- 0.2
 
 # Date that human ethics permission was granted
 ETHICS_FROM <- ISOdatetime(2019, 5, 27, 0, 0, 0, tz = "")
+# Date of end of ethics permission
+ETHICS_TO <- ISOdatetime(2020, 5, 27, 0, 0, 0, tz = "")
 
 
 

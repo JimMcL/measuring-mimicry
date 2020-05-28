@@ -31,16 +31,16 @@ CopyCsvs <- function(fromDir = OUTPUT_DIR, toDir = GLOBAL_OUTDIR) {
 }
 
 # Exports CSV files of mimetic accuracy for images, species and species/angles
-CreateOutputFiles <- function(from = ETHICS_FROM) {
+CreateOutputFiles <- function(from = ETHICS_FROM, to = ETHICS_TO) {
   if (!dir.exists(OUTPUT_DIR))
     dir.create(OUTPUT_DIR)
   
   # Report on image scores
-  sp <- MDbRun(ImageStats, sessionIds = sessionIds, from = from, to = NULL)
+  sp <- MDbRun(ImageStats, sessionIds = sessionIds, from = from, to = to)
   write.csv(sp, file.path(OUTPUT_DIR, "Human predators-accuracy-images.csv"), row.names = FALSE)
   
   # Report on species/angles with photos
-  sp <- MDbRun(SpeciesAngleStats, from = from)
+  sp <- MDbRun(SpeciesAngleStats, from = from, to = to)
   write.csv(sp, file.path(OUTPUT_DIR, "Human predators-accuracy-species-angle.csv"), row.names = FALSE)
   # Report on species
   sp <- MDbRun(SpeciesStats, from = from, anglesToInclude = c("Lateral", "Dorsal", "Lateral right side"))
@@ -51,7 +51,7 @@ CreateOutputFiles <- function(from = ETHICS_FROM) {
 }
 
 ReportSessionsInfo <- function() {
-  scores <- SessionStats(MDbRun(GetDecisionScores, sessionIds = NULL, from = ETHICS_FROM, to = NULL))
+  scores <- SessionStats(MDbRun(GetDecisionScores, sessionIds = NULL, from = ETHICS_FROM, to = ETHICS_TO))
   nRejected <- sum(scores$reject)
   n <- nrow(scores)
   cat(sprintf("%d sessions, of which %d were rejected (%d%%)\n", n, nRejected, round(nRejected * 100 / n)))
@@ -61,10 +61,15 @@ ReportSessionsInfo <- function() {
   cat(sprintf("From non-rejected sessions, %d total decisions on mimics\n", sum(good$mimics_total)))
 }
 
+
+#### 
+# No longer query the online database, as ethics permission has expired
 # Get the current results from the Firebase database. Results are stored in an Sqlite database locally
-updated <- MDbBringUpToDate(QueryFirebase)
-if (length(updated$session) > 0)
-  message(sprintf("Local database was updated with %d new sessions\n", length(updated$session)))
+#updated <- MDbBringUpToDate(QueryFirebase)
+#if (length(updated$session) > 0)
+#  message(sprintf("Local database was updated with %d new sessions\n", length(updated$session)))
+####
+
 # Now query the local database to analyse the results and write output files
 CreateOutputFiles()
 
