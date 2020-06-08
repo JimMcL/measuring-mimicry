@@ -68,6 +68,7 @@ ReportSessionsInfo <- function() {
 #updated <- MDbBringUpToDate(QueryFirebase)
 #if (length(updated$session) > 0)
 #  message(sprintf("Local database was updated with %d new sessions\n", length(updated$session)))
+cat("NOTE that new sessions are no longer being retrieved as ethics approval has ended\n")
 ####
 
 # Now query the local database to analyse the results and write output files
