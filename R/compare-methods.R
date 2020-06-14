@@ -1,4 +1,6 @@
 # Reads google vision accuracy score for images from the global output directory
+
+#devtools::install_github("JimMcL/JUtils")
 library(JUtils)
 library(TeachingDemos)
 source("functions.R")
@@ -50,7 +52,8 @@ LoadAccuracies <- function(dir = DATA_DIR, methods = ".*", fileSuffix = "-accura
   a
 }
 
-CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All") {
+CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All", ...) {
+  
   # We only are interested in mimics
   values1 <- values1[values1$mimicType == "mimic", ]
   values2 <- values2[values2$mimicType == "mimic", ]
@@ -69,7 +72,7 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
     stop(sprintf("Too few species are common to %s and %s: %d\n", name1, name2, nrow(m)))
   }
   
-  ci <- BootstrapCorCI(acc1, acc2)
+  ci <- BootstrapCorCI(acc1, acc2, ...)
 
   pearson <- suppressWarnings(cor.test(acc1, acc2, method = "pearson"))
   # print(pearson)
@@ -83,7 +86,7 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
   
   # Calculate regression to get adjusted r squared, p value
   l <- lm(acc1 ~ acc2)
-
+  
   # For a discussion of what adjusted R squared is, see https://stats.stackexchange.com/a/63097
   c(Pearson = pearson$estimate, 
     `R-squared` = summary(l)$r.square,
@@ -91,7 +94,9 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
     p = summary(l)$coefficients[2,4],
     ci.lower = ci[1],
     ci.upper = ci[2],
-    n = length(acc1))
+    n = length(acc1),
+    Spearman = spearman$estimate,
+    Spearman.p = spearman$p.value)
 }
 
 # Plots bootstrapped 95% confidence intervals of correlations between pairs of
@@ -99,6 +104,7 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
 # by two vertical lines, each drawn with the colour and line style of one of the
 # two methods in the pair.
 PlotCI <- function(df, subset, ylimExtra = c(-.1, 0)) {
+  
   allMethods <- unique(c(df$method1, df$method2))
   .methodCol <- function(method) match(method, allMethods)
   .methodLty <- function(method) match(method, allMethods)
@@ -152,7 +158,7 @@ LoadAllAccuracies <- function(subset = c("All", "Dorsal", "Lateral")) {
   acc  
 }
 
-CompareAllMethods <- function(subset, alpha = 0.05) {
+CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", ...) {
 
   acc <- LoadAllAccuracies(subset)
   
@@ -174,7 +180,7 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   cc <- apply(pairs, 1, function(pair) {
     rowMethod <- pair[1]
     colMethod <- pair[2]
-    CalcPairwiseCovariance(rowMethod, acc[[rowMethod]], colMethod, acc[[colMethod]], subset)
+    CalcPairwiseCovariance(rowMethod, acc[[rowMethod]], colMethod, acc[[colMethod]], subset, method = method, ...)
     })
   cc <- as.data.frame(t(cc))
   row.names(cc) <- paste(pairs$rows, pairs$cols, sep = "-")
@@ -184,15 +190,20 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   # Adjust p-values for multiple comparisons, by controlling the false discovery
   # rate. This is more powerful than controlling the family-wise error rate,
   # such as e.g. Bonferroni correction
-  cc$pAdj <- p.adjust(cc$p, "BH")
+  cc$pAdj <- p.adjust(cc$Spearman.p, "BH")
 
   # For presentation, round to 2 digits and add a significance column
-  rep <- cbind(round(cc[, c("Adj.R.squared", "pAdj", "n", "Pearson.cor", "p")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
-
+  #rep <- cbind(round(cc[, c("Adj.R.squared", "pAdj", "n", "Pearson.cor", "p")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
+  rep <- cbind(round(cc[, c("Spearman.rho", "pAdj", "n")], 2), sig = ifelse(cc$pAdj < alpha, "*", ""))
+  
   # Full info
   cat(sprintf("Comparison of %s mimics\n", tolower(subset)))
   print(rep)
-
+  ma <- which.max(rep$Spearman.rho)
+  cat(sprintf("Strongest correlation: %s, rho = %g, p.adj = %g\n", rownames(rep)[ma], rep$Spearman.rho[ma], rep$pAdj[ma]))
+  mi <- which.min(rep$Spearman.rho)
+  cat(sprintf("Weakest correlation: %s, rho = %g, p.adj = %g\n", rownames(rep)[mi], rep$Spearman.rho[mi], rep$pAdj[mi]))
+  
   # Or print out as a matrix
   #xtabs(round(Adj.R.squared, 2) ~ method1 + method2, data = cc)
   #xtabs(round(pAdj, 2) ~ method1 + method2, data = cc)
@@ -211,8 +222,12 @@ CompareAllMethods <- function(subset, alpha = 0.05) {
   PlotCI(cc, subset)
 }
 
-# @param p Parameter used to control network layout (Power for Minkowski distance)
-PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "pearson", p = .75) {
+# @param correlation Type of correlation to calculate. Default is the
+#   non-parametric spearmans rho because the accuracy values are bounded, which
+#   violates an assumption of pearson's correlatino coefficient.
+# @param p Parameter used to control network layout (Power for Minkowski
+#   distance)
+PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "spearman", p = .75) {
   
   # Load accuracies for all methods
   acc <- LoadAllAccuracies(subset)
@@ -240,6 +255,14 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   MyPlotNetwork(cor, xFactor = xFactor, yFactor = yFactor, leg.cex = leg.cex, labelPos = c(1, 3, 1, 1, 1), p = p)
 }
 
+# Plots probability densities of the distributions of the accuracy scores for all methods
+PlotMethodDensities <- function(subset = "all") {
+  acc <- LoadAllAccuracies(subset)
+  dl <- lapply(names(acc), function(m) density(acc[[m]]$accuracy, na.rm = TRUE))
+  JPlotDensities(dl)
+  abline(v = c(0, 1))
+}
+
 ##########################################################################
 
 
@@ -250,7 +273,7 @@ CompareAllMethods("All")
 
 # Method correlation network diagram
 # PNG suitable for embedding in a Word document
-p <- .6
+p <- .4
 JPlotToPNG("../output/Figure_1.png",
            PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7, p = p),
            units = "px", width = 900, height = 450, res = 160)

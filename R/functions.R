@@ -130,17 +130,18 @@ DrawLMTexT <- function(l, side = 1, adj = .99, firstLine = 0, lineInc = 1, ...) 
 ##############################################################
 # Boostrapping and randomisation
 
-# Bootstrap 95% confidence interval of correlation coefficient
-BootstrapCorCI <- function(x, y, nreps = 10000) {
+# Bootstrap 95% confidence interval of correlation coefficient.
+# Any additional arguments are pssed on to cor.test.
+BootstrapCorCI <- function(x, y, nreps = 10000, ...) {
   stopifnot(length(x) == length(y))
   
   rboot <- 0
   n <- length(x)
   for(i in 1:nreps) {
     samp <- sample(1:n, n, replace = TRUE)
-    rboot[i] <- cor.test(x[samp], y[samp])$estimate
+    rboot[i] <- cor.test(x[samp], y[samp], ...)$estimate
   }
-  quantile(rboot, c(0.025, 0.975))
+  c(quantile(rboot, c(0.025, 0.975)), mean(rboot))
 }
 
 # Randomisation test (yields upper bound on p value, two sided test)
