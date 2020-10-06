@@ -88,6 +88,7 @@ CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All
   l <- lm(acc1 ~ acc2)
   
   # For a discussion of what adjusted R squared is, see https://stats.stackexchange.com/a/63097
+  # Note that names are modified by c if the value is named, so eg Spearman becomes Spearman.rho
   c(Pearson = pearson$estimate, 
     `R-squared` = summary(l)$r.square,
     Adj.R.squared = summary(l)$adj.r.squared,
@@ -220,11 +221,13 @@ CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", ...) {
   
   # Or 95% CI as pairs of lines for each correlation
   PlotCI(cc, subset)
+  
+  invisible(cc)
 }
 
 # @param correlation Type of correlation to calculate. Default is the
 #   non-parametric spearmans rho because the accuracy values are bounded, which
-#   violates an assumption of pearson's correlatino coefficient.
+#   violates an assumption of pearson's correlation coefficient.
 # @param p Parameter used to control network layout (Power for Minkowski
 #   distance)
 PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05, leg.cex = 1, correlation = "spearman", p = .75) {
@@ -232,10 +235,12 @@ PlotCorNetwork <- function(subset, alpha = 0.05, xFactor = 0.05, yFactor = 0.05,
   # Load accuracies for all methods
   acc <- LoadAllAccuracies(subset)
   
-  # Get data frames with 2 columns, species and method (which was named accuracy)
+  # Get data frames with 2 columns, species and method (which was named accuracy), stripping out all non-mimics
   methods <- names(acc)
   l <- lapply(methods, function(meth) {
-    ma <- acc[[meth]][, c("species", "accuracy")]
+    ma <- acc[[meth]]
+    # Get desired columns for rows containing mimics
+    ma <- ma[ma$mimicType == "mimic", c("species", "accuracy")]
     names(ma)[2] <- meth
     ma
     })
@@ -273,7 +278,7 @@ CompareAllMethods("All")
 
 # Method correlation network diagram
 # PNG suitable for embedding in a Word document
-p <- .4
+p <- .8
 JPlotToPNG("../output/Figure_1.png",
            PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7, p = p),
            units = "px", width = 900, height = 450, res = 160)
