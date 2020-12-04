@@ -9,7 +9,7 @@ A number of phenotypic traits considered salient to ant mimicry were measured. B
 
 ## Input
 
-- `data/mimics.csv` was copied from `../Trait table/Raw data table.csv`, and 0 values were changed to `N/A` in columns `Constriction height` and `Constriction width` for both Prosomal constriction and Opisthosomal constriction.
+- `data/mimics.csv` was copied from `../Trait table/Raw data table.csv`, and 0 values were changed to `N/A` in columns `Constriction height` and `Constriction width` for both Prosomal constriction and Opisthosomal constriction. Note that this file contains both mimics and non-mimics, identified by the column `mimicType`.
 - `data/models.xlsx` was created by measuring ant traits that we considered homologous or analagous to the traits measured in the mimics.
 - `data/models.csv` was created by exporting `data/models.xlsx` as a CSV file.
 

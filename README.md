@@ -6,16 +6,19 @@ plants). This project contains scripts that implement multiple methods
 for evaluating and quantifying the visual accuracy of mimics, which we
 hope will be useful for research into mimicry.
 
-Each of the methods produces one or more CSV
-files as output. All output CSV files are accessible in the `output`
-directory of this project (as described below). The columns in the CSV
-files are format-specific, but always contain a `species` and an
-`accuracy` column.
+Each of the methods produces one or more CSV files as output. All
+output CSV files are accessible in the `output` directory of this
+project (as described below). The columns in the CSV files are
+format-specific, but always contain a `species` and an `accuracy`
+column. Some files will also contain a `mimicType` column, with values
+`mimic`, `non-mimic` or `ant`.
 
-The methods are described in the paper "Measuring mimicry: Methods for quantifying visual similarity", Kelly
-et al. 2020. If you make use of any of this functionality in your
-research, please cite the paper.  This directory also contains the
-data used to assess the methods in the above paper.
+The methods are described in the paper "Measuring mimicry: Methods for
+quantifying visual similarity", Kelly et al. 2020. If you make use of
+any of this functionality in your research, please cite the paper.
+This directory and its subdirectories also contain the data used to
+assess the methods in the above paper, as well as the output accuracy
+scores for all methods.
 
 ## Implementation
 
