@@ -22,8 +22,8 @@ for (c in numericCols) {
 }
 
 # Take means of numeric columns for each species
-a <- aggregate(raw[, numericCols], list(raw$Family, raw$Genus, raw$Species), mean, na.rm = TRUE)
-names(a) <- c("Family", "Genus", "Species", numericCols)
+a <- aggregate(raw[, numericCols], list(raw$Family, raw$Genus, raw$Species, raw$Mimic.Type), mean, na.rm = TRUE)
+names(a) <- c("Family", "Genus", "Species", "mimicType", numericCols)
 
 # Calculate sample size for each species
 ss <- sapply(seq_len(nrow(a)), function(i) sum(raw$Genus == a$Genus[i] & raw$Species == a$Species[i]))
