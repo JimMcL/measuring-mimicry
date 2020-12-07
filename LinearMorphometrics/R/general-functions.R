@@ -107,3 +107,47 @@ CalcMimeticAccuracy <- function(df, dataCols = colnames(df), modelIndices, scale
   1 - md / max(md)
 }
 
+# Custom PCA plotting function. Almost the same as biplot, but allows a bit more flexibility
+CustomPcaPlot <- function(x, xlabs = "", xcols = par()$col, xbg = par()$bg, choices = 1L:2L, ycol = "#ff2222aa", arrowScale = 3.5, pch = 16, extendPlot = c(0, 0), ...) {
+  if (length(choices) != 2) {
+    descr <- capture.output(dput(choices))
+    stop(sprintf("Invalid choices value (%s), can only plot two components", descr))
+  }
+  # Draw points
+  pts <- t(t(x$x[, choices]))
+  plot(pts, type = "p", 
+       xlim = extendrange(pts[, 1L], f = extendPlot[1]), ylim = extendrange(pts[, 2L], f = extendPlot[2]), 
+       asp = 1,
+       xlab = "", ylab = "",
+       xaxt = "n", yaxt = "n",
+       pch = pch, col = xcols, bg = xbg, ...)
+  text(pts, labels = xlabs, pos = 1, ...)
+  xlab <- sprintf("PC%d (%.2g%% of variance)", choices[1], summary(pca)$importance[2,choices[1]] * 100)
+  title(xlab = xlab, line = 1)
+  ylab <- sprintf("PC%d (%.2g%% of variance)", choices[2], summary(pca)$importance[2,choices[2]] * 100)
+  title(ylab = ylab, line = 1)
+  
+  # Draw arrows
+  axs <- t(t(x$rotation[, choices])) * arrowScale
+  text(axs, labels = dimnames(axs)[[1L]], col = ycol, ...)
+  arrows(0, 0, axs[, 1L] * .8, axs[, 2L] * .8, length = .1, col = ycol)
+}
+
+# Simplified scree plot that I can embed inside a PCA plot
+# 
+# @param The components to be filled
+# @param Identifies the components to be "retained", ie. plotted
+customScreePlot <- function(x, choices = 1:2, retain = 0.98, ...) {
+  ncomp <- sum(summary(x)$importance[3,] <= retain)
+  proportions <- summary(x)$importance[2, seq_len(ncomp)]
+  
+  barplot(proportions, 
+          col = ifelse(seq_len(ncomp) %in% choices, "grey", NA), xaxt = "n", yaxt = "n",
+          space = 0, ...)
+  
+  ymax <- par()$yaxp[2]
+  ymid <- round(ymax * 10) / 10 / 2
+  axis(2, at = c(0, ymid, ymax), las = 1, col = NA, col.ticks = 1, ...)
+}
+
+

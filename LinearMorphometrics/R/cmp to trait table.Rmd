@@ -1,7 +1,5 @@
 ---
 title: "Comparison of linear morphometrics and trait table"
-author: "Jim McLean"
-date: "11/02/2020"
 output: html_document
 ---
 
@@ -31,7 +29,8 @@ PlotLinearMorpho <- function(df, xyCols, accuracy, cexScale = 5, showModelCentro
   cex <- ifelse(is.na(cex), 1, cex)
   
   types <- as.factor(df$mimicType)
-  mtToCol <- function(mimicType) ifelse(mimicType == "mimic", "#10101080", "#e0000080")
+  mtToCol <- function(mimicType) ifelse(mimicType == "mimic", "#10101080", 
+                                        ifelse(mimicType == "model", "#e0000080", "#4040e080"))
   plot(df[, xyCols], pch = 21, bg = mtToCol(df$mimicType), col = "grey", cex = cex, ...)
   legend(legpos, levels(types), pch = 21, pt.bg = mtToCol(levels(types)), pt.cex = 1.5, col = "black")
   
