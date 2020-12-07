@@ -80,7 +80,7 @@ shinyServer(function(input, output, session) {
   renderAntScoresTable <- eventReactive(c(input$downloadData, input$cmpTime), {
     # Get comparison time, i.e. compare stats from before and after this time
     from <- .getFrom(input$cmpTime)
-    HTMLBuildImageScoresTable(mimicType = "ant", from = from[[1]])
+    HTMLBuildImageScoresTable(mimicType = "model", from = from[[1]])
   })
   
   # Redraw photo scores table after download button pressed as well as change in cmpTime

@@ -28,8 +28,8 @@ ReadPhotoPoolInfo <- function() {
   info <- info[info$species != "", ]
   # Convert any type of lateral (e.g. "lateral right side") to lateral
   info$angle[grep("lateral", info$angle, ignore.case = T)] <- "Lateral"
-  # Classify as ant, mimic or non-mimic
-  info$mimicType <- ifelse(info$family == "Formicidae", "ant", 
+  # Classify as model, mimic or non-mimic
+  info$mimicType <- ifelse(info$family == "Formicidae", "model", 
                            ifelse(info$isMimic, "mimic", "non-mimic"))
   info
 }
@@ -72,7 +72,7 @@ ScoreSession <- function(scores) {
     x
   }
 
-  ants <- scores$mimicType == "ant"
+  ants <- scores$mimicType == "model"
   mimics <- scores$mimicType == "mimic"
   nonMimics <- scores$mimicType == "non-mimic"
 

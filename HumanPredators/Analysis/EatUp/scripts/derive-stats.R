@@ -27,7 +27,8 @@ ImageStats <- function(db, sessionIds = NULL, from = NULL, to = NULL) {
   r
 }
 
-# Calculate right and wrong scores for each species/angle, using only non-rejected sessions
+# Calculate accuracy from right and wrong scores for each species/angle, using only non-rejected sessions.
+# "Accuracy" here means likelihood of being misclassified.
 SpeciesAngleStats <- function(db, from = ETHICS_FROM, to = NULL) {
   is <- ImageStats(db, from = from, to = to)
   is$numPhotos <- 1
