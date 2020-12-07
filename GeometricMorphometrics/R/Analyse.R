@@ -7,6 +7,9 @@
 # 
 # Output: CSV files in the ../output directory
 
+#devtools::install_github("JimMcL/JUtils")
+library(JUtils)
+
 source("morpho_fns.R", local = TRUE)
 
 OUTLINE_DIR <- "../data"
@@ -26,7 +29,7 @@ GLOBAL_OUTDIR <- "../../output"
 #
 # @returns numeric vector of distance from each row in coe to the midpoint of
 #   the models in coe.
-MorphoMahalanobisDist <- function(coe, retain = .99, modelType = "model") {
+MorphoMahalanobisDist <- function(coe, retain, modelType = "model") {
   
   # Start with PCA. This eliminates constant dimensions that would stop the
   # Mahalanobis distance calculation from working, and also drastically reduces
@@ -52,10 +55,16 @@ MorphoMahalanobisDist <- function(coe, retain = .99, modelType = "model") {
 #
 # Use with care, since plotting just 2 principal components can obscure
 # meaningful patterns in the data.
-PlotInMorphospace <- function(coe, ...) {
+PlotInMorphospace <- function(coe, title, ...) {
   p <- PCA(coe)
+  # This shouldn't be needed, but without it, some points get clipped!
+  par(xpd = NA)
   # Plot the result in morphospace. Momocs knows how to plot a PCA
-  plot(p, fac = "mimicType", ellipses = TRUE, ...)
+  plot_PCA(p, f = "mimicType", labelgroups = TRUE, chull = FALSE, center_origin = FALSE, palette = col_solarized, zoom = .9) %>% 
+    layer_points(cex = .8) %>%
+    layer_ellipses %>%
+    layer_labelgroups(cex = .9) %>%
+    layer_title(title)
 }
 
 # Example function to plot probability densities of accuracy by mimic type
@@ -87,7 +96,7 @@ PlotMimicTypeDensities <- function(coe, ...) {
 # 
 # @param outlines Data frame describing the photos to be analysed. Must include the
 #   columns required by MorphoAnalysisForPhotos, plus an outlineId column. 
-RunMorphoAnalysis <- function(outlines, angles = c("Dorsal", "Lateral"), force = FALSE, subsample = NULL) {
+RunMorphoAnalysis <- function(outlines, angles = c("Dorsal", "Lateral"), force = FALSE, subsample = NULL, retain = 0.9) {
 
   # Report missing outlines
   missing <- !file.exists(outlines$file)
@@ -103,7 +112,7 @@ RunMorphoAnalysis <- function(outlines, angles = c("Dorsal", "Lateral"), force =
   # of all model shapes, negated and scaled so acuracies range from 0 to 1.
   calcAccuracy <- function(coe) {
     # Calculate distance from each point to centroid of ants
-    md <- MorphoMahalanobisDist(coe)
+    md <- MorphoMahalanobisDist(coe, retain = retain)
     # Invert distance to get accuracy (i.e. points further away from the ants
     # are less accurate), and scale so the result is a number from 1 (perfect
     # accuracy) to 0 (worst accuracy). Note that 0 means the worst accuracy
@@ -175,6 +184,15 @@ CopyCsvs <- function(fromDir = OUTPUT_DIR, toDir = GLOBAL_OUTDIR) {
   }
 }
 
+# Generates a PCA plot of morphology of individuals
+SamplePCAPlot <- function(outlines, angle) {
+  photos <- outlines[outlines$angle == angle, ]
+  # Get morphological analysis on these photos - hopefully it is cached
+  m <- GetMorphoForPhotos(photos, force = FALSE)
+  # Plot
+  PlotInMorphospace(m$individual$Coe, title = angle, chull = FALSE)
+}
+
 ReportStats <- function(outlines) {
   cat(sprintf("%d images: %d dorsal and %d lateral\n", 
               nrow(outlines), sum(outlines$angle == "Dorsal"), sum(outlines$angle == "Lateral")))
@@ -214,3 +232,5 @@ CopyCsvs()
 
 ShowTime("Total processing time", startTime)
 ReportStats(outlines)
+JPlotToPNG("../output/morpho-pca.png", SamplePCAPlot(outlines, "Dorsal"), units = "px", width = 900, res = 160)
+JPlotToPDF("../output/morpho-pca.pdf", SamplePCAPlot(outlines, "Dorsal"))
