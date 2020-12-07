@@ -39,7 +39,7 @@ GradientLegend <- function(..., colours = diverge_hcl(21), labels = c("1.0", "0.
 # @param borderColor Colour of edge borders.
 # @param p If non-metric scaling, then \code{p} is power for Minkowski distance
 #   in the configuration space (i.e. it affects the layout ;).
-MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black", p = 2) {
+MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, labelPos = 1, leg.cex = 1, borderWidth = NA, borderColour = "black", p = 2, halfLegend = TRUE) {
   # Perform the scaling
   if (classic)
     points <- cmdscale(1 - cor, k = 2)
@@ -60,7 +60,7 @@ MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, 
 
   # Make colour represent correlation relative to [-1, 1]
   csc <- .scale(scaled, -1, 1)
-  nColours <- 21
+  nColours <- ifelse(halfLegend, 42, 21)
   pal <- diverge_hcl(nColours, h = c(240, 0), c = 100, l = c(65, 97), rev = TRUE)
   
   pairs <- combn(seq_len(nrow(points)), 2)
@@ -73,7 +73,14 @@ MyPlotNetwork <- function(cor, classic = FALSE, xFactor = 0.05, yFactor = 0.05, 
   
   shadowtext(x, y, labels = colnames(cor), cex=1, pos = labelPos, col = "#303030", bg = "white", r = .2,
              theta = seq(0, 2 * pi, length.out = 100))
-  GradientLegend("right", colours = rev(pal), bty = "n", inset = c(-0.04, 0), xpd = NA, cex = leg.cex)
+  if (halfLegend) {
+    # Only show the top-half of the legend
+    GradientLegend("right", colours = head(rev(pal), length(pal) / 2), labels = c(1, 0), bty = "n", inset = c(-0.04, 0), xpd = NA, cex = leg.cex)
+  } else {
+    # Full legend
+    GradientLegend("right", colours = rev(pal), bty = "n", inset = c(-0.04, 0), xpd = NA, cex = leg.cex)
+  }
+
 }
 
 ##############################################################

@@ -52,7 +52,7 @@ LoadAccuracies <- function(dir = DATA_DIR, methods = ".*", fileSuffix = "-accura
   a
 }
 
-CalcPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All", ...) {
+CalcMimicsPairwiseCovariance <- function(name1, values1, name2, values2, subset = "All", ...) {
   
   # We only are interested in mimics
   values1 <- values1[values1$mimicType == "mimic", ]
@@ -159,7 +159,7 @@ LoadAllAccuracies <- function(subset = c("All", "Dorsal", "Lateral")) {
   acc  
 }
 
-CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", ...) {
+CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", doPlot = interactive(), ...) {
 
   acc <- LoadAllAccuracies(subset)
   
@@ -181,7 +181,7 @@ CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", ...) {
   cc <- apply(pairs, 1, function(pair) {
     rowMethod <- pair[1]
     colMethod <- pair[2]
-    CalcPairwiseCovariance(rowMethod, acc[[rowMethod]], colMethod, acc[[colMethod]], subset, method = method, ...)
+    CalcMimicsPairwiseCovariance(rowMethod, acc[[rowMethod]], colMethod, acc[[colMethod]], subset, method = method, ...)
     })
   cc <- as.data.frame(t(cc))
   row.names(cc) <- paste(pairs$rows, pairs$cols, sep = "-")
@@ -219,8 +219,10 @@ CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", ...) {
   # abline(a = alpha, b = 0, lty = 2, col = "grey") # alpha - statistical significance
   # legend("topright", legend = leg, pch = pch, pt.bg = col, col = "#444444", pt.cex = 1.6, inset = c(0.01, 0.01))
   
-  # Or 95% CI as pairs of lines for each correlation
-  PlotCI(cc, subset)
+  if (doPlot) {
+    # Or 95% CI as pairs of lines for each correlation
+    PlotCI(cc, subset)
+  }
   
   invisible(cc)
 }
@@ -266,6 +268,43 @@ PlotMethodDensities <- function(subset = "all") {
   dl <- lapply(names(acc), function(m) density(acc[[m]]$accuracy, na.rm = TRUE))
   JPlotDensities(dl)
   abline(v = c(0, 1))
+}
+
+PickImagesToReport <- function() {
+  # What species have been assessed by all methods?
+  acc <- LoadAllAccuracies("All")
+  acc <- LoadAllAccuracies("Dorsal")
+  commonSpecies <- Reduce(intersect, lapply(acc, function(a) a$species))
+  
+  .meanSpeciesAccuracy <- function(species) {
+    mean(sapply(acc, function(a) a[a$species == species, "accuracy"]))
+  }
+  
+  .reportSpecies <- function(species) {
+    print(do.call(rbind, lapply(acc, function(a) { a[a$species == species, c("species", "accuracy", "method")]})))
+  }
+  .speciesImages <- function(species) {
+    # Get human predators image assessments
+    hp <- read.csv(file.path(DATA_DIR, "Human predators-accuracy-images.csv"))
+    hp$humanAccuracy <- hp$accuracy
+    data <- hp[hp$species == species, c("species", "humanAccuracy", "webUrl")]
+
+    images <- data$webUrl
+    
+    # Get machine learning image assessments
+    ml <- read.csv(file.path(DATA_DIR, "Machine learning-accuracy-images.csv"))
+    data$machineAccuracy <- ml$antLike[match(images, ml$imageUrl)]
+    print(data)
+    invisible(data)
+  }
+  sapply(commonSpecies, .meanSpeciesAccuracy)
+  x <- sapply(commonSpecies, .speciesImages)
+  .speciesImages("Myrmarachne helensmithae")
+  .speciesImages("Myrmarachne luctuosa")
+  
+  # Options 
+  # Myrmarachne helensmithae     0.7380952 images/4199.jpg       0.9644712
+  # Myrmarachne luctuosa    0.09448819 images/3243.jpg       0.0000000
 }
 
 ##########################################################################
