@@ -35,3 +35,8 @@ point for future implementations. As an absolute minimum, it would be
 necessary to change (or remove) all of the pages except `trial.html`,
 replace the photos in `images`, and set up a Firebase account.
 
+Our particular configuration, with static web pages stored on Github
+and a Google Firebase database, suffers from a security
+problem. Either the database must be publically writable, or else the
+credentials must be publically accessable on Github. This is clearly
+risky, so should be avoided.
