@@ -227,6 +227,7 @@ CompareAllMethods <- function(subset, alpha = 0.05, method = "spearman", doPlot 
   invisible(cc)
 }
 
+# Plots a correlation network.  
 # @param correlation Type of correlation to calculate. Default is the
 #   non-parametric spearmans rho because the accuracy values are bounded, which
 #   violates an assumption of pearson's correlation coefficient.
@@ -317,10 +318,10 @@ CompareAllMethods("All")
 
 # Method correlation network diagram
 # PNG suitable for embedding in a Word document
-p <- .8
-JPlotToPNG("../output/Figure_1.png",
+p <- 1
+JPlotToPNG("../output/Figure_5.png",
            PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7, p = p),
            units = "px", width = 900, height = 450, res = 160)
 # Same diagram for publishing
-JPlotToPDF("../output/Figure_1.pdf",
+JPlotToPDF("../output/Figure_5.pdf",
            PlotCorNetwork("All", xFactor = 0.2, leg.cex = .7, p = p))
