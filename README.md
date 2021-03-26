@@ -1,5 +1,7 @@
 # Methods for measuring mimicry
 
+[![DOI](https://zenodo.org/badge/236611664.svg)](https://zenodo.org/badge/latestdoi/236611664)
+
 
 Mimics are animals (or plants) that resemble other animals (or
 plants). This project contains scripts that implement multiple methods
