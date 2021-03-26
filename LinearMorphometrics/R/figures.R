@@ -46,13 +46,13 @@ isAnt <- df$mimicType == "model"
          pch = c(mimicPch, antPch, nonMimicPch),
          pt.bg = c(mimicCol, antCol, nonMimicCol), inset = c(0.01, 0.01))
 
-  # Inset a scree plot
-  par(fig = c(.78, .98, .02, .22), new = TRUE)
-  customScreePlot(pca, cex.axis = 0.6)
+  # # Inset a scree plot
+  # par(fig = c(.78, .98, .02, .22), new = TRUE)
+  # customScreePlot(pca, cex.axis = 0.6)
 }
 
-dev.off()
-.plotPca()
+# dev.off()
+# .plotPca()
 
-# JPlotToPNG("../output/pca.png", .plotPca, units = "px", width = 900, res = 120, aspectRatio = 1.2)
-# JPlotToPDF("../output/pca.pdf", .plotPca, width = 240, aspectRatio = 1.2)
+JPlotToPNG("../output/pca.png", .plotPca, units = "px", width = 900, res = 120, aspectRatio = 1.2)
+JPlotToPDF("../output/pca.pdf", .plotPca, width = 240, aspectRatio = 1.2)
