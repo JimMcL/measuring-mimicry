@@ -55,16 +55,21 @@ MorphoMahalanobisDist <- function(coe, retain, modelType = "model") {
 #
 # Use with care, since plotting just 2 principal components can obscure
 # meaningful patterns in the data.
-PlotInMorphospace <- function(coe, title, ...) {
+PlotInMorphospace <- function(coe, title) {
   p <- PCA(coe)
   # This shouldn't be needed, but without it, some points get clipped!
   par(xpd = NA)
   # Plot the result in morphospace. Momocs knows how to plot a PCA
-  plot_PCA(p, f = "mimicType", labelgroups = TRUE, chull = FALSE, center_origin = FALSE, palette = col_solarized, zoom = .9) %>% 
+  plot_PCA(p, f = "mimicType", labelgroups = TRUE, chull = FALSE, center_origin = FALSE, palette = col_solarized, eigen = FALSE, zoom = .9) %>%
     layer_points(cex = .8) %>%
     layer_ellipses %>%
-    layer_labelgroups(cex = .9) %>%
-    layer_title(title)
+    layer_labelgroups(cex = .9) #%>%
+    #layer_title(title)
+  
+  # Unfortunately, plot_PCA seems to have problems. The development version as
+  # at 26 Mar 2021 mostly works, but the call to "layer_title(title)" fails with message:
+  # Error in strheight(title) : plot.new has not been called yet
+  text(par()$usr[1], par()$usr[4] - strheight(title), labels = title, pos = 4)
 }
 
 # Example function to plot probability densities of accuracy by mimic type
@@ -76,7 +81,7 @@ PlotMimicTypeDensities <- function(coe, ...) {
   ylim <- range(lapply(densities, function(d) d$y), na.rm = TRUE)
   plot(NULL, xlim = xlim, ylim = ylim, ...)
   # Plot each of the calculated densities
-  for(i in seq_len(length(densities))) {
+  for (i in seq_len(length(densities))) {
     lines(d[[i]], col = i, lwd = 2)
   }
   legend("topleft", legend = types, col = seq_along(types), lwd = 2)
@@ -84,7 +89,7 @@ PlotMimicTypeDensities <- function(coe, ...) {
 
 # Returns the name of the output CSV file for the level (individual or species)
 # and angle (Dorsal, Lateral or NULL)
-.csvName <- function (level, angle = NULL) {
+.csvName <- function(level, angle = NULL) {
   suf <- if (is.null(angle))
     ""
   else
@@ -190,7 +195,7 @@ SamplePCAPlot <- function(outlines, angle) {
   # Get morphological analysis on these photos - hopefully it is cached
   m <- GetMorphoForPhotos(photos, force = FALSE)
   # Plot
-  PlotInMorphospace(m$individual$Coe, title = angle, chull = FALSE)
+  PlotInMorphospace(m$individual$Coe, title = angle)
 }
 
 ReportStats <- function(outlines) {
