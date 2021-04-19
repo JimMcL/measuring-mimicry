@@ -50,12 +50,15 @@ MorphoMahalanobisDist <- function(coe, retain, modelType = "model") {
   md
 }
 
-# Example function to plot the results of the morphmetric analysis. Plots the
+# Example function to plot the results of the morphometric analysis. Plots the
 # points on the first 2 principal components.
 #
 # Use with care, since plotting just 2 principal components can obscure
 # meaningful patterns in the data.
 PlotInMorphospace <- function(coe, title) {
+  # Capitalise mimic type so that it is capitalised in the plot legend
+  coe$fac$mimicType <- factor(JCapitalise(coe$fac$mimicType))
+  # Run the PCA
   p <- PCA(coe)
   # This shouldn't be needed, but without it, some points get clipped!
   par(xpd = NA)
@@ -238,4 +241,5 @@ CopyCsvs()
 ShowTime("Total processing time", startTime)
 ReportStats(outlines)
 JPlotToPNG("../output/morpho-pca.png", SamplePCAPlot(outlines, "Dorsal"), units = "px", width = 900, res = 160)
-JPlotToPDF("../output/morpho-pca.pdf", SamplePCAPlot(outlines, "Dorsal"))
+# Note that embedding fonts requires Ghostscript to be installed
+JPlotToPDF("../output/morpho-pca.pdf", SamplePCAPlot(outlines, "Dorsal"), embedFonts = TRUE)
