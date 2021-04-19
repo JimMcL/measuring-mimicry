@@ -318,10 +318,10 @@ CompareAllMethods("All")
 
 # Method correlation network diagram
 # PNG suitable for embedding in a Word document
-p <- 1
-JPlotToPNG("../output/Figure_5.png",
+p <- 0.95
+JPlotToPNG("../output/Figure6.png",
            PlotCorNetwork("All", xFactor = 0.19, leg.cex = .7, p = p),
            units = "px", width = 900, height = 450, res = 160)
-# Same diagram for publishing
-JPlotToPDF("../output/Figure_5.pdf",
-           PlotCorNetwork("All", xFactor = 0.2, leg.cex = .7, p = p))
+# Same diagram for publishing. Ghostscript must be installed for font embedding to work
+JPlotToPDF("../output/Figure6.pdf",
+           PlotCorNetwork("All", xFactor = 0.2, leg.cex = .7, p = p), embedFonts = TRUE)
