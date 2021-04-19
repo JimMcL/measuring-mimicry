@@ -55,4 +55,5 @@ isAnt <- df$mimicType == "model"
 # .plotPca()
 
 JPlotToPNG("../output/pca.png", .plotPca, units = "px", width = 900, res = 120, aspectRatio = 1.2)
-JPlotToPDF("../output/pca.pdf", .plotPca, width = 240, aspectRatio = 1.2)
+# Embedding fonts requires Ghostscript to be installed
+JPlotToPDF("../output/pca.pdf", .plotPca, width = 240, aspectRatio = 1.2, embedFonts = TRUE)
