@@ -1,4 +1,5 @@
 library(dabestr)
+library(JUtils)
 source("scripts/functions.R")
 source("scripts/db.R")
 source("scripts/download-firebase.R")
@@ -300,7 +301,7 @@ AudienceEffect <- function() {
   }
 
   # Get accuracy scores
-  types <- c("mimic", "ant", "non-mimic")
+  types <- c("mimic", "model", "non-mimic")
   sc <- sapply(types, function(type) sapply(xVals, .score, type))
   
   # Summarise in words
@@ -308,10 +309,13 @@ AudienceEffect <- function() {
               min(sc[,1]), .weekToDate(xVals[which.min(sc[,1])]),
               max(sc[,1]), .weekToDate(xVals[which.max(sc[,1])])))
   
-  par(mar = c(7, 4, 4, 4) + .1)
+  par(mar = c(7, 4, 4, 5) + .1)
   
   yMax <- 4000 # Gives us nicely rounded axis labels
-  xScale <- barplot(counts / yMax, space = 2, xaxt = "n", ylim = c(0, 1), xlab = "", ylab = "Proportion correct", main = "Accuracy by audience")
+  xScale <- barplot(counts / yMax, space = 2, xaxt = "n", ylim = c(0, 1), xlab = "", ylab = "Proportion correct", main = "Accuracy by audience", las = 1)
+  # The journal requested that the x-axis line extends to the y-axis lines, so
+  # fake it with box and bty. Doesn't work properly in PNG, but looks right in PDF
+  box(bty = "u")
   lines(xScale, sc[,1], lwd = 2, col = "red", lty = 1)
   lines(xScale, sc[,2], lwd = 2, col = "blue", lty = 2)
   lines(xScale, sc[,3], lwd = 3, col = "purple", lty = 3)
@@ -320,13 +324,13 @@ AudienceEffect <- function() {
   labels <- .weekToDate(xVals)
   axis(1, at = xScale, labels = labels, las = 2)
   # RHS axis labels for bar plot
-  axis(4, at = seq(0, 1, length.out = 5), labels = round(seq(0, yMax, length.out = 5)))
-  mtext("No. of decisions", 4, line = 3)
+  axis(4, at = seq(0, 1, length.out = 5), labels = round(seq(0, yMax, length.out = 5)), las = 1)
+  mtext("No. of decisions", 4, line = 4)
   
   # Label some important times
   notes <- data.frame(label = c("MQ biology HDR conference", "ASSAB conference",
                        "General public outreach", "General public outreach", "MQ open day demo",
-                       "Biol undergrads", "Biol undergrads", "Advertised on social media"),
+                       "Biology undergraduates", "Biology undergraduates", "Advertised on social media"),
              date = dmy(c("13-Jun-2019", "07-Jul-2019", "10-Aug-2019", "13-Aug-2019", "17-Aug-2019", "11-Sep-2019", "13-Sep-2019", "30-Sep-2019")))
   notes$week <- floor(as.numeric(notes$date - min(dates)) / 7)
   notes$x <- match(notes$week, xVals)
@@ -339,6 +343,8 @@ cat("\nEffect of audience\n==================\n")
 #AudienceEffect()
 JPlotToPNG("../../output/audience-effect.png", AudienceEffect,
            units = "px", width = 750, aspectRatio = 4 / 3)
+JPlotToPDF("../../output/audience-effect.pdf", AudienceEffect,
+           pointsize = 7, embedFonts = TRUE)
 
 .getScoresWithRejection <- function() {
   scores <- MDbRun(GetDecisionScores, sessionIds = NULL, from = ETHICS_FROM, to = ETHICS_TO)
